@@ -1,0 +1,475 @@
+
+
+<MDScreen>:
+
+    
+    MDBoxLayout:
+        
+        orientation: 'vertical'
+        MDTopAppBar:            
+            title: 'BirdID SA'
+            left_action_items: [["fish", lambda x: app.navigation_draw()]]
+            right_action_items: [["information-outline", lambda *args : setattr(root.manager, "current", "screen_two")], ["exit-to-app", lambda x: app.stop()]]
+           
+            
+            
+        MDWidget:  
+            
+        MDBottomAppBar: 
+            MDTopAppBar:
+                title: ''               
+                type: 'bottom'
+                mode: 'free-center'
+                #mode: 'center'
+                icon: "camera-outline"
+                elevation: 0
+                on_action_button: root.manager.current = 'app_layout'
+                                
+                left_action_items: [["home-outline", lambda x: app.weather()]]             
+             
+               
+                right_action_items:  [["account-group-outline", lambda x: app.remove_camera_layout()]]
+
+                     
+
+
+<AppLayout>:
+
+
+    change_height:
+        
+    elevation: 0
+    size_hint: (None,None)
+    size_hint: (1,root.change_height)
+
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}    
+    
+
+    allow_stretch: True
+    keep_ratio: False 
+
+    #letterbox_color: 'white'
+    
+    detect: self.ids.preview
+    ClassifyObject:        
+        id:preview       
+
+
+
+ 
+        
+     
+
+
+<ButtonsLayout>:
+    pos_hint: {'center_x': 0.5, 'center_y': 0.2}   
+    normal:
+    down:
+
+    Button:
+        id:screen
+        on_press: app.screenshot()
+        height: self.width
+        width: self.height
+        background_normal: root.normal
+        background_down: root.down 
+        
+        
+        
+<ButtonsLayoutInfo>:
+
+  
+    
+    MDFillRoundFlatIconButton:
+        id:info 
+        icon: "information-outline"
+       
+        text: ''
+        on_press: root.remove_btn(), app.show_alert_dialog()
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+       
+
+        
+
+       
+<Content>:
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            #pos: self.pos
+            size: self.size   
+
+
+    #padding: 4
+    #size_hint: None, None
+    #size: "200dp", "100dp"
+    
+    #orientation: "vertical"  
+      
+    
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        Image:
+            #source: "icons/map-marker.png"
+            id: my_image
+            source: ''
+            size_hint: .5,.5
+            pos_hint: {"center_x": .5, "center_y": .75}
+
+        MDLabel: 
+            #id: location   
+            id: my_title        
+            text: ""
+            pos_hint: {"center_x": .5, "center_y": .45}
+            halign: "center"
+            font_size: "20sp"
+            
+       
+            
+        MDLabel: 
+            id: my_label          
+            text: ""
+            #markup: True
+            pos_hint: {"center_x": .5, "center_y": .35}
+            halign: "center"
+            font_size: "15sp"    
+            
+            
+
+                                        
+                                         
+        MDFloatLayout:   
+            pos_hint: {"center_x": .25, "center_y": .15}    
+            size_hint: .22,.1
+                 
+            MDIconButton:
+                icon: 'ruler'  
+                pos_hint: {"center_x": .1, "center_y": .3}            
+            
+            MDLabel:    
+                id:my_info_1                     
+                text: ""             
+                pos_hint: {"center_x": 1, "center_y": .5}            
+                font_size: "15sp"                            
+            
+
+                                   
+                      
+        MDFloatLayout:   
+            pos_hint: {"center_x": .7, "center_y": .15}    
+            size_hint: .22,.1
+                 
+            MDIconButton:             
+                icon: 'bag-checked'           
+                pos_hint: {"center_x": .1, "center_y": .3}            
+            
+            MDLabel:    
+                id:my_info_2                  
+                text: ""             
+                pos_hint: {"center_x": 1.1, "center_y": .5}            
+                font_size: "15sp"                            
+            
+    
+                                                    
+                
+        MDFlatButton:
+            md_bg_color: app.theme_cls.primary_color
+            #pos_hint: {"top": 1, "right": 1}
+            pos_hint: {"center_x": .5, "center_y": .05}
+            text: "Close"
+            on_press: app.remove_show_alert_dialog()
+
+
+
+
+
+
+
+
+<Settings>:
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            #pos: self.pos
+            size: self.size        
+
+
+
+    #padding: 4
+    #size_hint: None, None
+    #size: "200dp", "100dp"
+
+   
+
+    MDRelativeLayout:
+    
+
+        MDLabel:
+            id: label
+            text: "About"
+            adaptive_size: True
+            color: "grey"
+            #pos: "12dp", "12dp"
+            pos_hint: {"center_x": .5, "center_y": .9}
+            bold: True
+                
+    
+    
+        MDLabel:
+            id: label
+            text: "FishID SA is an app that identifies South African angling fish.\nThe app scans the video feed, detects a fish and displays an info button relating to the identified fish."
+            adaptive_size: True
+            color: "black"
+            #pos: "12dp", "12dp"
+            pos_hint: {"center_x": .5, "center_y": .8}
+            bold: False        
+
+            
+        MDLabel:
+            id: label
+            text: ""
+            adaptive_size: True
+            color: "grey"
+            #pos: "12dp", "12dp"
+            pos_hint: {"center_x": .5, "center_y": .4}
+            bold: True
+
+
+        MDFlatButton:
+            md_bg_color: app.theme_cls.primary_color
+            #pos_hint: {"top": 1, "right": 1}
+            pos_hint: {"center_x": .5, "center_y": .4}
+            text: "back"
+            on_press: app.remove_settings()
+            
+            
+            
+
+
+<Weather>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            #pos: self.pos
+            size: self.size   
+
+
+    #padding: 4
+    #size_hint: None, None
+    #size: "200dp", "100dp"
+
+
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        Image:
+            source: "icons/map-marker.png"
+            size_hint: .1,.1
+            pos_hint: {"center_x": .5, "center_y": .95}
+
+        MDLabel: 
+            id: location           
+            text: "East London, EL"
+            pos_hint: {"center_x": .5, "center_y": .89}
+            halign: "center"
+            font_size: "20sp"
+            
+        Image:
+            id: weather_image
+            source: "icons/sun.png"
+            size_hint: .1,.1
+            pos_hint: {"center_x": .5, "center_y": .77}            
+            
+        MDLabel: 
+            id: temperature           
+            text: "[b]40[/b]°"
+            markup: True
+            pos_hint: {"center_x": .5, "center_y": .62}
+            halign: "center"
+            font_size: "60sp"    
+            
+            
+        MDLabel: 
+            id: weather          
+            text: "Partly Cloudy"       
+            pos_hint: {"center_x": .5, "center_y": .54}
+            halign: "center"
+            font_size: "20sp"   
+            
+            
+            
+            
+                  
+            
+        MDFloatLayout:   
+            pos_hint: {"center_x": .25, "center_y": .4}    
+            size_hint: .22,.1
+                 
+            Image:             
+                source: "icons/water-percent.png"           
+                pos_hint: {"center_x": .1, "center_y": .5}            
+            
+            MDLabel:    
+                id:humidity                     
+                text: "80%"             
+                pos_hint: {"center_x": 1, "center_y": .7}            
+                font_size: "18sp"                            
+            
+            MDLabel:                         
+                text: "Humidity"             
+                pos_hint: {"center_x": 1, "center_y": .3}            
+                font_size: "14sp"    
+                                   
+                      
+        MDFloatLayout:   
+            pos_hint: {"center_x": .7, "center_y": .4}    
+            size_hint: .22,.1
+                 
+            Image:             
+                source: "icons/wind.png"           
+                pos_hint: {"center_x": .1, "center_y": .5}            
+            
+            MDLabel:    
+                id:wind_speed                   
+                text: "80km/h"             
+                pos_hint: {"center_x": 1.1, "center_y": .7}            
+                font_size: "16sp"                            
+            
+            MDLabel:                         
+                text: "Wind"             
+                pos_hint: {"center_x": 1.1, "center_y": .3}            
+                font_size: "14sp"    
+                                         
+
+                
+        MDFloatLayout:   
+            pos_hint: {"center_x": .25, "center_y": .3}    
+            size_hint: .22,.1
+                 
+            Image:             
+                source: "icons/hightide.png"           
+                pos_hint: {"center_x": .1, "center_y": .4}            
+            
+            MDLabel:    
+                id:high1                     
+                text: "4:33 AM SAST 0.8 m"             
+                pos_hint: {"center_x": 1, "center_y": .6}            
+                font_size: "18sp"                            
+            
+            MDLabel:                         
+                text: "High 1"             
+                pos_hint: {"center_x": 1, "center_y": .2}            
+                font_size: "14sp"    
+                                   
+                      
+        MDFloatLayout:   
+            pos_hint: {"center_x": .7, "center_y": .3}    
+            size_hint: .22,.1
+                 
+            Image:             
+                source: "icons/waves.png"           
+                pos_hint: {"center_x": .1, "center_y": .4}            
+            
+            MDLabel:    
+                id:low1                   
+                text: "12:40 PM SAST 0.7 m"             
+                pos_hint: {"center_x": 1.1, "center_y": .6}            
+                font_size: "16sp"                            
+            
+            MDLabel:                         
+                text: "Low 1"             
+                pos_hint: {"center_x": 1.1, "center_y": .2}            
+                font_size: "14sp"    
+                                        
+                                         
+        MDFloatLayout:   
+            pos_hint: {"center_x": .25, "center_y": .2}    
+            size_hint: .22,.1
+                 
+            Image:             
+                source: "icons/hightide.png"           
+                pos_hint: {"center_x": .1, "center_y": .3}            
+            
+            MDLabel:    
+                id:high2                     
+                text: "4:33 AM SAST 0.8 m"             
+                pos_hint: {"center_x": 1, "center_y": .5}            
+                font_size: "18sp"                            
+            
+            MDLabel:                         
+                text: "High 2"             
+                pos_hint: {"center_x": 1, "center_y": .1}            
+                font_size: "14sp"    
+                                   
+                      
+        MDFloatLayout:   
+            pos_hint: {"center_x": .7, "center_y": .2}    
+            size_hint: .22,.1
+                 
+            Image:             
+                source: "icons/waves.png"           
+                pos_hint: {"center_x": .1, "center_y": .3}            
+            
+            MDLabel:    
+                id:low2                   
+                text: "12:40 PM SAST 0.7 m"             
+                pos_hint: {"center_x": 1.1, "center_y": .5}            
+                font_size: "16sp"                            
+            
+            MDLabel:                         
+                text: "Low 2"             
+                pos_hint: {"center_x": 1.1, "center_y": .1}            
+                font_size: "14sp"    
+                                                    
+                
+
+
+        MDFlatButton:
+            md_bg_color: app.theme_cls.primary_color
+            #pos_hint: {"top": 1, "right": 1}
+            pos_hint: {"center_x": .25, "center_y": .05}
+            text: "check"
+            on_press: app.get_weather("Dehli")
+        
+        
+        
+        MDFlatButton:
+            md_bg_color: app.theme_cls.primary_color
+            #pos_hint: {"top": 1, "right": 1}
+            pos_hint: {"center_x": .7, "center_y": .05}
+            text: "back"
+            on_press: app.remove_weather()
+
+           
+                
+
+<RecordForm>:  
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: [0.6, .8]
+            Graph:
+                id: graph
+                xlabel: ""
+                ylabel: "Level"
+                ymin:-1
+                ymax:1
+                y_ticks_major:0.25
+                background_color: 0, 0, 1, 1
+        BoxLayout:
+            size_hint: [1, .2]
+            orientation: "horizontal"
+            Button:
+                text: "START"
+                bold: True
+                on_press: root.start_record()
+            Button:
+                text: "STOP"
+                bold: True
+                on_press: root.stop_record()   
+
