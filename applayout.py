@@ -20,7 +20,7 @@ from kivy.uix.popup import Popup
 
 
 
-#from jnius import autoclass
+from jnius import autoclass
 from audiostream import get_input
 import wave
 #
