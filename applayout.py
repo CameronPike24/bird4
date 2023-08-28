@@ -383,7 +383,7 @@ class RecordForm(MDScreen):
         try:
             #with zipfile.ZipFile('my_birds_model.tflite') as model_with_metadata:
             #with zipfile.ZipFile('./birds_models/my_birds_model.tflite') as model_with_metadata: 
-            with zipfile.ZipFile('my_birds_model.tflite') as model_with_metadata: 
+            with zipfile.ZipFile('object_detection/my_birds_model.tflite') as model_with_metadata: 
   
                 if not model_with_metadata.namelist():
                     raise ValueError('Invalid TFLite model: no label file found.')
