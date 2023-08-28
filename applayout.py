@@ -367,7 +367,7 @@ class RecordForm(MDScreen):
         
 
         #Open the bird model
-        with open('my_birds_model.tflite', 'rb') as fid:
+        with open('object_detection/my_birds_model.tflite', 'rb') as fid:
             tflite_model = fid.read()    
 
         #interpreter = tf.lite.Interpreter('lite-model_yamnet_tflite_1.tflite')
