@@ -357,10 +357,11 @@ class RecordForm(MDScreen):
             # Import TFLite interpreter from tflite_runtime package if it's available.
             from tflite_runtime.interpreter import Interpreter
             from tflite_runtime.interpreter import load_delegate
+            Interpreter_audio = Interpreter
         except ImportError:
             # If not, fallback to use the TFLite interpreter from the full TF package.
             import tensorflow as tf
-            Interpreter_audio = tf.lite.Interpreter
+            #Interpreter_audio = tf.lite.Interpreter
             #load_delegate = tf.lite.experimental.load_delegate        
         
         
