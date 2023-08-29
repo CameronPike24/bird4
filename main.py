@@ -642,9 +642,19 @@ class MyApp(MDApp):
         self.dont_gc = None
        
         # Can't connect camera till after on_start()
-        Clock.schedule_once(self.connect_camera)
+        
         #Clock.schedule_once(self.on_stop, 10)
         #Clock.schedule_once(self.on_start, 20)
+        
+        
+        ######For testing audio disconnect the camera detect for now
+        #*******************************************************
+        #Clock.schedule_once(self.connect_camera)
+        
+        
+        
+        
+        
 
     def connect_camera(self,dt):    
         #self.layout.detect.connect_camera(enable_analyze_pixels = True)
