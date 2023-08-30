@@ -649,7 +649,7 @@ class MyApp(MDApp):
         
         ######For testing audio disconnect the camera detect for now
         #*******************************************************
-        #Clock.schedule_once(self.connect_camera)
+        Clock.schedule_once(self.connect_camera)
         
         
         
