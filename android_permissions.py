@@ -43,7 +43,8 @@ class AndroidPermissions:
             #################################################
             # Customize run time permissions for the app here
             #################################################
-            self.permissions = [Permission.CAMERA]
+            #self.permissions = [Permission.CAMERA]
+            self.permissions = [Permission.CAMERA,Permission.INTERNET,Permission.RECORD_AUDIO,Permission.WAKE_LOCK,Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE]
             #################################################            
             self.permission_status([],[])
         elif self.start_app:

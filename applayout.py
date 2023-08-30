@@ -674,7 +674,10 @@ class RecordForm(MDScreen):
         levels = []
         
         self.mic.start()
+        print("Completed self.mic.start()")
         Clock.schedule_interval(self.readbuffer, 1/samples_per_second)
+        print("samples per second")
+        print(samples_per_second)
         print("def start(self)")
         a = datetime.now().strftime('%d-%m-%Y %H:%M:%S') 
         print(a)
