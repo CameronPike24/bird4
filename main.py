@@ -72,8 +72,7 @@ Builder.load_string("""
             pos_hint: {"center_x": .2, "center_y": .8}
   
             on_press: 
-                #root.manager.transition = NoTransition()
-                app.Clock.schedule_once(self.connect_camera)
+                #root.manager.transition = NoTransition()                
                 root.manager.current = 'app_layout'               
         
 
