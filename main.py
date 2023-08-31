@@ -652,7 +652,8 @@ class MyApp(MDApp):
         #Clock.schedule_once(self.connect_camera)
         
         
-        
+    def start_object_detection(self):
+        Clock.schedule_once(self.connect_camera)      
         
         
 

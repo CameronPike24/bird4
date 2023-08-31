@@ -49,8 +49,7 @@ class AppLayout(MDScreen):
     #Window.fullscreen = 'auto'
     change_height = StringProperty(None)
     
-    def on_enter(self):
-        Clock.schedule_once(self.connect_camera)
+
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -74,12 +73,7 @@ class AppLayout(MDScreen):
             self.change_height = '0.75'
 
     
-    def connect_camera(self,dt):  
-    
-        #self.layout.detect.connect_camera(enable_analyze_pixels = True)
-        #MDApp.root.applayout.detect.connect_camera(enable_analyze_pixels = True)
-        #self.root.layout.detect.connect_camera(enable_analyze_pixels = True)
-        self.detect.connect_camera(enable_analyze_pixels = True)      
+ 
       
         
         
