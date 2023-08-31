@@ -73,6 +73,7 @@ Builder.load_string("""
   
             on_press: 
                 #root.manager.transition = NoTransition()
+                app.Clock.schedule_once(self.connect_camera)
                 root.manager.current = 'app_layout'               
         
 
@@ -649,7 +650,7 @@ class MyApp(MDApp):
         
         ######For testing audio disconnect the camera detect for now
         #*******************************************************
-        Clock.schedule_once(self.connect_camera)
+        #Clock.schedule_once(self.connect_camera)
         
         
         
