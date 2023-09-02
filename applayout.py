@@ -53,6 +53,13 @@ class AppLayout(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        
+    #Start camera when opening screen    
+    def on_enter(self):
+        #Clock.schedule_once(self.switch_screen) 
+        app.start_object_detection()   
+        
+        
 
   
     def on_size(self, layout, size):
