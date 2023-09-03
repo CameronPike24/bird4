@@ -53,13 +53,6 @@ class AppLayout(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
-    #Start camera when opening screen    
-    def on_enter(self):
-        #Clock.schedule_once(self.switch_screen) 
-        app.start_object_detection()   
-        
-        
 
   
     def on_size(self, layout, size):
@@ -190,6 +183,25 @@ class ButtonsLayoutInfo(RelativeLayout):
         #print("we changed the text")
         
 
+ 
+ 
+class ButtonLayoutObjectDetection(RelativeLayout):
+   
+    
+    def __init__(self, **kwargs):
+        super(ButtonLayoutObjectDetection, self).__init__(**kwargs)
+
+        self.btn = self.ids['info']
+        #pos_hint: {'center_x': 0.1, 'center_y': 0.2}  
+        #size_hint: (.5,.1)  
+        
+
+    #def add_btn(self, *args): 
+    def add_btn(self):        
+
+        self.btn.pos_hint: {'center_x': 0.5, 'center_y': 0.5}        
+        self.btn.text = 'start'
+        
     
       
     def show_more_info(self):

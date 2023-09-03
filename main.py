@@ -7,6 +7,7 @@ from applayout import MDScreen
 from applayout import AppLayout
 from applayout import ButtonsLayout
 from applayout import ButtonsLayoutInfo
+from applayout import ButtonLayoutObjectDetection
 from applayout import Content
 from applayout import Settings
 from applayout import Weather
@@ -581,6 +582,23 @@ class MyApp(MDApp):
         self.layout = MDScreen(name="app_layout")     
         self.cameradetect = AppLayout()          
         self.layout.add_widget(self.cameradetect)
+        
+        
+        
+        #Add button to start object detection
+        self.start_object_detection_button = ButtonLayoutObjectDetection()
+        
+        self.start_object_detection_button_value == 0
+        
+        if(self.start_object_detection_button_value == 0):   
+            self.layout.add_widget(self.start_object_detection_button) 
+            self.start_object_detection_button_value = 1
+
+        self.start_object_detection_button.add_btn()        
+        
+        
+        
+        
        
        
         #Add RecordForm class widget
