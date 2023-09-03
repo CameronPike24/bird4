@@ -588,7 +588,7 @@ class MyApp(MDApp):
         #Add button to start object detection
         self.start_object_detection_button = ButtonLayoutObjectDetection()
         
-        self.start_object_detection_button_value == 0
+        self.start_object_detection_button_value = 0
         
         if(self.start_object_detection_button_value == 0):   
             self.layout.add_widget(self.start_object_detection_button) 
