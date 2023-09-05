@@ -197,10 +197,10 @@ class ButtonLayoutObjectDetection(RelativeLayout):
         
 
     #def add_btn(self, *args): 
-    def add_btn(self):        
+    def add_btn(self,birdclass):        
 
         self.btn.pos_hint: {'center_x': 0.5, 'center_y': 0.5}        
-        self.btn.text = 'start'
+        self.btn.text = birdclass
         
     
       
@@ -1049,10 +1049,28 @@ class RecordForm(MDScreen):
         #print(_label_list_1[top_class_index]) 
         print("bird class")
         print(self._label_list[result_index_array])  
+        self.bird_class = self._label_list[result_index_array]
         
         j = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
         print("End of prediction")
         print(j)  
+        
+        
+        #Now we need to display the info button for the bird.
+        
+        self.display_object_detection_button = ButtonLayoutObjectDetection()
+        
+        self.display_object_detection_button_value = 0
+        
+        if(self.display_object_detection_button_value == 0):   
+            #self.layout.add_widget(self.start_object_detection_button) 
+            self.add_widget(self.display_object_detection_button) 
+            self.display_object_detection_button_value = 1
+
+        self.display_object_detection_button.add_btn(self.bird_class)          
+        
+   
+        
         
         #Call start to start the readbuffer, start the mic and empty the buffer
         #Note that self.recording_has_started is still False. We reset it after the scores so as to prevent any new recording starting before we finished analysing
@@ -1093,10 +1111,28 @@ class RecordForm(MDScreen):
         #print(scores)
         #print(scores.shape)  # Should print (1, 5)            
          
-        #Allow the next recording to start 
-        
+        #Allow the next recording to start      
          
 
         
         return self.scores
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
             
