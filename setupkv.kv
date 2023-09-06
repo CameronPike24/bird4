@@ -98,7 +98,21 @@
        
         text: ''
         on_press: root.remove_btn(), app.start_object_detection()
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}        
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}    
+        
+        
+        
+<ButtonLayoutAudioDetection>:  
+    
+    MDFillRoundFlatIconButton:
+        id:info 
+        icon: "information-outline"
+       
+        text: ''
+        on_press: root.remove_btn(), root.show_alert_dialog()
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}            
+        
+            
 
        
 <Content>:

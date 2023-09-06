@@ -40,6 +40,7 @@ import sys
 from collections import deque
 import time
 #import threading
+import csv
 
 
 
@@ -216,29 +217,30 @@ class ButtonLayoutAudioDetection(RelativeLayout):
         
 
     #def add_btn(self, *args): 
-    def add_btn(self,birdclass,x_pos,y_pos):        
+    def add_btn(self,birdclass,x_pos,y_pos,general_info,info1,info2):        
 
         self.btn.pos_hint: {'center_x': x_pos, 'center_y': y_pos}        
         self.btn.text = birdclass
+        self.object_all_info = general_info
+        self.detected_object_name = birdclass
+        self.object_info_1 = info1
+        self.object_info_2 = info2
+        
+        
+        
         
 
-    
+    def show_alert_dialog(self):   
+        print("we at show_alert_dialog")
+        #Stop the clock schedule from removing the info button as dialog was opened
+        #self.cancel_remove_button_time_expired(self)
+       
+        self.adddialog = Content()  
       
-    def show_more_info(self):
-        
-        
-        #print("we at show more info")  
-        #print("self.object_info_1")
-        #print(self.object_info_1) 
-        
-        #print("we at show more info")  
-        #print("self.object_general_info")
-        #print(self.object_general_info)
-        
-            
-        #self.btn.text = self.object_general_info
-        self.btn.text = self.object_all_info
-        self.size_hint = (1,1) 
+        self.layout.add_widget(self.adddialog)   
+        self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2)      
+        #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
+
         
         
         
@@ -1078,6 +1080,45 @@ class RecordForm(MDScreen):
         
         
         #Now we need to display the info button for the bird.
+        #****************************************************#
+        #Get the info from the csv file using the birdname - note add birds from audio model
+        
+
+
+        file = open("csv/object_info.csv", "r")
+        data = list(csv.reader(file, delimiter=","))
+        file.close() 
+        print("file data")   
+        print(data)  
+        
+        index_of_list_value = next(i for i,v in enumerate(data) if self.bird_class in v)
+        print('index_of_list_value')
+        print(index_of_list_value)
+        
+        #list_row = data[[3][0]]
+        list_row = data[[index_of_list_value][0]]
+        
+        #self.detected_object_name_1 = list_row[1]
+        #print('sef.detected_object_name_1')
+        #print(self.detected_object_name_1)
+        
+        
+        
+        
+       
+        self.detected_object_name = list_row[0]
+        self.object_general_info = list_row[1]
+        self.object_info_1 = list_row[2]
+        self.object_info_2 = list_row[3]
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
@@ -1096,7 +1137,7 @@ class RecordForm(MDScreen):
         self.position_hint_x = 0.1
         self.position_hint_y = audio_button_displayed_count/10   
 
-        self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y)          
+        self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
         
         if(audio_button_dispalyed_count == 5):
            audio_button_dispalyed_count = 0
