@@ -1031,7 +1031,7 @@ class RecordForm(MDScreen):
         ######################################################################
         #Step 6 - Start inference
         #####################################################################
-        
+        global audio_button_displayed_count
         ##
         #Do a fake graph plot now as we have stopped the mic input else the graph stops plotting
         ##
