@@ -197,11 +197,31 @@ class ButtonLayoutObjectDetection(RelativeLayout):
         
 
     #def add_btn(self, *args): 
-    def add_btn(self,birdclass):        
+    def add_btn(self,info_posted):        
 
         self.btn.pos_hint: {'center_x': 0.5, 'center_y': 0.5}        
+        self.btn.text = info_posted
+        
+
+
+class ButtonLayoutAudioDetection(RelativeLayout):
+   
+    
+    def __init__(self, **kwargs):
+        super(ButtonLayoutAudioDetection, self).__init__(**kwargs)
+
+        self.btn = self.ids['info']
+        #pos_hint: {'center_x': 0.1, 'center_y': 0.2}  
+        #size_hint: (.5,.1)  
+        
+
+    #def add_btn(self, *args): 
+    def add_btn(self,birdclass,x_pos,y_pos):        
+
+        self.btn.pos_hint: {'center_x': x_pos, 'center_y': y_pos}        
         self.btn.text = birdclass
         
+
     
       
     def show_more_info(self):
@@ -322,6 +342,7 @@ PATH = "rec_test1.wav"
  
 recordtime = 5
 samples_per_second = 60
+audio_button_displayed_count = 0
        
 
 class RecordForm(MDScreen):
@@ -1058,18 +1079,28 @@ class RecordForm(MDScreen):
         
         #Now we need to display the info button for the bird.
         
-        self.display_object_detection_button = ButtonLayoutObjectDetection()
+        self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
-        self.display_object_detection_button_value = 0
+        self.display_audio_detection_button_value = 0
         
-        if(self.display_object_detection_button_value == 0):   
+        if(self.display_audio_detection_button_value == 0):   
             #self.layout.add_widget(self.start_object_detection_button) 
-            self.add_widget(self.display_object_detection_button) 
-            self.display_object_detection_button_value = 1
+            self.add_widget(self.display_audio_detection_button) 
+            self.display_audio_detection_button_value = 1
+            
+        #Keep track of how many buttons are displayed
+        audio_button_displayed_count = audio_button_displayed_count + 1   
+            
+        #Layer the buttons from bottom to top on the screen by using the position hint
+        #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
+        self.position_hint_x = 0.1
+        self.position_hint_y = audio_button_displayed_count/10   
 
-        self.display_object_detection_button.add_btn(self.bird_class)          
+        self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y)          
         
-   
+        if(audio_button_dispalyed_count == 5):
+           audio_button_dispalyed_count = 0
+           #Remove the previous buttons 
         
         
         #Call start to start the readbuffer, start the mic and empty the buffer
