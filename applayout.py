@@ -237,7 +237,8 @@ class ButtonLayoutAudioDetection(RelativeLayout):
        
         self.adddialog = Content()  
       
-        self.layout.add_widget(self.adddialog)   
+        #self.layout.add_widget(self.adddialog)   
+        self.add_widget(self.adddialog)
         self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2)      
         #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
 
