@@ -1139,8 +1139,8 @@ class RecordForm(MDScreen):
 
         self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
         
-        if(audio_button_dispalyed_count == 5):
-           audio_button_dispalyed_count = 0
+        if(audio_button_displayed_count == 5):
+           audio_button_displayed_count = 0
            #Remove the previous buttons 
         
         
