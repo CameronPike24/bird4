@@ -926,7 +926,8 @@ class MyApp(MDApp):
         #self.addsettings = Settings()  
         #self.layout.add_widget(self.addsettings) 
         #self.layout.remove_widget(self.adddialog)  
-        self.remove_widget(self.adddialog)
+        #self.remove_widget(self.adddialog)
+        self.parent.remove_widget(self.adddialog)
         
         #Continue to detect images in classifyobject.py        
         #self.continue_detection_value set value to 0 to continue detecting
