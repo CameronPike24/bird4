@@ -243,6 +243,19 @@ class ButtonLayoutAudioDetection(RelativeLayout):
         #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
 
         
+
+        
+    #def remove_dialog(self, *args): 
+    def remove_dialog(self):      
+        print("we removed show_alert_dialog")
+        #self.addsettings = Settings()  
+        #self.layout.add_widget(self.addsettings) 
+        #self.layout.remove_widget(self.adddialog)  
+        self.remove_widget(self.adddialog)
+     
+        #Continue to detect images in classifyobject.py        
+        #self.continue_detection_value set value to 0 to continue detecting
+        self.continue_detection_value = 0        
         
         
     def remove_btn(self, *args):
@@ -323,6 +336,9 @@ class Content(MDCard):
         self.lbl.text = self.object_all_info
         self.my_info_1.text = self.object_info_1
         self.my_info_2.text = self.object_info_2
+        
+
+        
         
 
 class Settings(MDCard):  
