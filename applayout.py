@@ -203,7 +203,55 @@ class ButtonLayoutObjectDetection(RelativeLayout):
         self.btn.pos_hint: {'center_x': 0.5, 'center_y': 0.5}        
         self.btn.text = info_posted
         
+      
+    def show_more_info(self):
+        
+        
+        #print("we at show more info")  
+        #print("self.object_info_1")
+        #print(self.object_info_1) 
+        
+        #print("we at show more info")  
+        #print("self.object_general_info")
+        #print(self.object_general_info)
+        
+            
+        #self.btn.text = self.object_general_info
+        self.btn.text = self.object_all_info
+        self.size_hint = (1,1) 
+        
+        
+        
+    def remove_btn(self, *args):
 
+        
+        #self.btn.background.opacity: 0
+        #self.btn.background_color: (0, 0, 0, 0) 
+        #self.btn.size: (0,0)
+        #self.size_hint = (0,0) 
+        
+        
+        
+        #self.btn.text = ''
+        #self.btn.opacity: 0
+        #self.btn.md_bg_color: [0,0,0,0]
+        self.btn.disabled: True # To make sure it doesn't capture events accidentally
+   
+        self.saved_y = self.btn.y
+        print("self.btn.y")
+        print(self.btn.y)      
+       
+        
+        
+        # Now move the widget offscreen (recall that pos is just an alias for (x, y))
+        self.btn.y = 5000
+        print("changed self.btn.y")
+        print(self.btn.y)
+        
+        self.btn.pos_hint ={'x':.2, 'y':self.btn.y}
+        print("self.btn.pos_hint")
+        print(self.btn.pos_hint)
+        #self.saved_y = self.btn.y
 
 class ButtonLayoutAudioDetection(RelativeLayout):
    
@@ -243,7 +291,17 @@ class ButtonLayoutAudioDetection(RelativeLayout):
         #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
 
         
-
+    #def remove_dialog(self, *args): 
+    def remove_dialog(self):      
+        print("we removed show_alert_dialog")
+        #self.addsettings = Settings()  
+        #self.layout.add_widget(self.addsettings) 
+        #self.layout.remove_widget(self.adddialog)  
+        self.remove_widget(self.adddialog)
+     
+        #Continue to detect images in classifyobject.py        
+        #self.continue_detection_value set value to 0 to continue detecting
+        self.continue_detection_value = 0      
 
         
         
@@ -328,17 +386,7 @@ class Content(MDCard):
         
 
         
-    #def remove_dialog(self, *args): 
-    def remove_dialog(self):      
-        print("we removed show_alert_dialog")
-        #self.addsettings = Settings()  
-        #self.layout.add_widget(self.addsettings) 
-        #self.layout.remove_widget(self.adddialog)  
-        self.remove_widget(self.adddialog)
-     
-        #Continue to detect images in classifyobject.py        
-        #self.continue_detection_value set value to 0 to continue detecting
-        self.continue_detection_value = 0                
+          
         
 
 class Settings(MDCard):  
