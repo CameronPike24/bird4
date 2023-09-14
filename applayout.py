@@ -184,15 +184,55 @@ class ButtonsLayoutInfo(RelativeLayout):
         #print("we changed the text")
         
 
+
+    def remove_btn(self, *args):
+
+        
+        #self.btn.background.opacity: 0
+        #self.btn.background_color: (0, 0, 0, 0) 
+        #self.btn.size: (0,0)
+        #self.size_hint = (0,0) 
+        
+        
+        
+        #self.btn.text = ''
+        #self.btn.opacity: 0
+        #self.btn.md_bg_color: [0,0,0,0]
+        self.btn.disabled: True # To make sure it doesn't capture events accidentally
+   
+        self.saved_y = self.btn.y
+        print("self.btn.y")
+        print(self.btn.y)      
+       
+        
+        
+        # Now move the widget offscreen (recall that pos is just an alias for (x, y))
+        self.btn.y = 5000
+        print("changed self.btn.y")
+        print(self.btn.y)
+        
+        self.btn.pos_hint ={'x':.2, 'y':self.btn.y}
+        print("self.btn.pos_hint")
+        print(self.btn.pos_hint)
+        #self.saved_y = self.btn.y
+
+
+
  
  
 class ButtonLayoutObjectDetection(RelativeLayout):
-   
+    
     
     def __init__(self, **kwargs):
         super(ButtonLayoutObjectDetection, self).__init__(**kwargs)
 
         self.btn = self.ids['info']
+        ########################################################################################
+        ########To note this creates a start button to start the object detection process#######
+        ########################################################################################
+        
+        
+        
         #pos_hint: {'center_x': 0.1, 'center_y': 0.2}  
         #size_hint: (.5,.1)  
         
