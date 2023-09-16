@@ -425,8 +425,9 @@ class Content(MDCard):
         self.my_info_2.text = self.object_info_2
         
 
-        
-          
+    def remove_audio_dialog(self):        
+        self.remove_dialog_audio = ButtonLayoutAudioDetection()
+        self.remove_dialog_audio.remove_dialog()  
         
 
 class Settings(MDCard):  
