@@ -327,7 +327,7 @@ class ButtonLayoutAudioDetection(RelativeLayout):
       
         #self.layout.add_widget(self.adddialog)   
         self.add_widget(self.adddialog)
-        self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2)      
+        self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2,self.adddialog)      
         #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
 
         
@@ -412,6 +412,8 @@ class Content(MDCard):
         self.object_all_info = lst1[1]
         self.object_info_1 = lst1[2]
         self.object_info_2 = lst1[3]
+        self.content_object = lst1[4]
+        
         print(self.detected_object_name)
         print(self.object_all_info)
         self.image_full_path = "images/" + self.detected_object_name + ".png"
@@ -426,8 +428,9 @@ class Content(MDCard):
         
 
     def remove_audio_dialog(self):        
-        self.remove_dialog_audio = ButtonLayoutAudioDetection()
-        self.remove_dialog_audio.remove_widget(self.adddialog)
+        #self.remove_dialog_audio = ButtonLayoutAudioDetection()
+        #self.remove_dialog_audio.remove_widget(self.adddialog)
+        self.remove_widget(self.content_object)
         
         #self.remove_dialog_audio.remove_dialog()  
         
