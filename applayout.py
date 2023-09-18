@@ -10,6 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRaisedButton,MDFlatButton, MDFillRoundFlatIconButton
 from kivymd.uix.card import MDCard
 from kivy.clock import Clock
+from kivy.app import App
 
 
 
@@ -431,10 +432,12 @@ class Content(MDCard):
     def remove_audio_dialog(self):        
         #self.remove_dialog_audio = ButtonLayoutAudioDetection()
         
-        #Add RecordForm class widget
-        self.recorder = MDScreen(name="record_form")     
-        self.recorderform = RecordForm()          
-        self.recorder.remove_widget(self.recorderform)     
+   
+        
+        self.recorder1,self.recorderform1 = App.get_running_app().retrieve_saved_instance_of_RecordForm()
+        
+        self.recorder1.remove_widget(self.recorderform1)
+        
         
         #self.remove_dialog_audio.remove_widget(self.adddialog)
         #self.remove_dialog_audio.remove_widget(self.content_object)

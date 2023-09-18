@@ -607,6 +607,11 @@ class MyApp(MDApp):
         self.recorderform = RecordForm()          
         self.recorder.add_widget(self.recorderform)       
        
+        #save this instance of the RecordForm
+    def retrieve_saved_instance_of_RecordForm(self):
+        return  self.recorder, self.recorderform   
+          
+          
            
         
         self.addinfobutton = ButtonsLayoutInfo()  
