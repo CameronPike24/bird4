@@ -327,6 +327,7 @@ class ButtonLayoutAudioDetection(RelativeLayout):
       
         #self.layout.add_widget(self.adddialog)   
         self.add_widget(self.adddialog)
+       
         self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2,self.adddialog)      
         #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
 
@@ -428,9 +429,15 @@ class Content(MDCard):
         
 
     def remove_audio_dialog(self):        
-        self.remove_dialog_audio = ButtonLayoutAudioDetection()
+        #self.remove_dialog_audio = ButtonLayoutAudioDetection()
+        
+        #Add RecordForm class widget
+        self.recorder = MDScreen(name="record_form")     
+        self.recorderform = RecordForm()          
+        self.recorder.remove_widget(self.recorderform)     
+        
         #self.remove_dialog_audio.remove_widget(self.adddialog)
-        self.remove_dialog_audio.remove_widget(self.content_object)
+        #self.remove_dialog_audio.remove_widget(self.content_object)
         
         #self.remove_dialog_audio.remove_dialog()  
         
