@@ -10,7 +10,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRaisedButton,MDFlatButton, MDFillRoundFlatIconButton
 from kivymd.uix.card import MDCard
 from kivy.clock import Clock
-from kivy.app import App
 
 
 
@@ -319,32 +318,6 @@ class ButtonLayoutAudioDetection(RelativeLayout):
         
         
 
-    def show_alert_dialog(self):   
-        print("we at show_alert_dialog")
-        #Stop the clock schedule from removing the info button as dialog was opened
-        #self.cancel_remove_button_time_expired(self)
-       
-        self.adddialog = Content()  
-      
-        #self.layout.add_widget(self.adddialog)   
-        self.add_widget(self.adddialog)
-       
-        self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2,self.adddialog)      
-        #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
-
-        
-    #def remove_dialog(self, *args): 
-    def remove_dialog(self):      
-        print("we removed show_alert_dialog")
-        #self.addsettings = Settings()  
-        #self.layout.add_widget(self.addsettings) 
-        #self.layout.remove_widget(self.adddialog)  
-        self.remove_widget(self.adddialog)
-     
-        #Continue to detect images in classifyobject.py        
-        #self.continue_detection_value set value to 0 to continue detecting
-        self.continue_detection_value = 0      
-
         
         
     def remove_btn(self, *args):
@@ -432,12 +405,10 @@ class Content(MDCard):
     def remove_audio_dialog(self):        
         #self.remove_dialog_audio = ButtonLayoutAudioDetection()
         
-   
-        
-        self.recorder1,self.recorderform1 = App.get_running_app().retrieve_saved_instance_of_RecordForm()
-        
-        self.recorder1.remove_widget(self.recorderform1)
-        
+        #Add RecordForm class widget
+        self.recorder = MDScreen(name="record_form")     
+        self.recorderform = RecordForm()          
+        self.recorder.remove_widget(self.recorderform)     
         
         #self.remove_dialog_audio.remove_widget(self.adddialog)
         #self.remove_dialog_audio.remove_widget(self.content_object)

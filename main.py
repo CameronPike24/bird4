@@ -607,11 +607,6 @@ class MyApp(MDApp):
         self.recorderform = RecordForm()          
         self.recorder.add_widget(self.recorderform)       
        
-        #save this instance of the RecordForm
-    def retrieve_saved_instance_of_RecordForm(self):
-        return  self.recorder, self.recorderform   
-          
-          
            
         
         self.addinfobutton = ButtonsLayoutInfo()  
@@ -938,6 +933,55 @@ class MyApp(MDApp):
         self.continue_detection_value = 0
         
         
+
+
+
+
+    def show_alert_dialog_audio(self):   
+        print("we at show_alert_dialog")
+        #Stop the clock schedule from removing the info button as dialog was opened
+        #self.cancel_remove_button_time_expired(self)
+       
+        self.adddialog_audio = Content()  
+      
+        #self.layout.add_widget(self.adddialog)   
+        self.recorder.add_widget(self.adddialog_audio)
+       
+        self.adddialog_audio.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2,self.adddialog)      
+        #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
+
+        
+    #def remove_dialog(self, *args): 
+    def remove_dialog_audio(self):      
+        print("we removed show_alert_dialog")
+        #self.addsettings = Settings()  
+        #self.layout.add_widget(self.addsettings) 
+        #self.layout.remove_widget(self.adddialog)  
+        self.recorder.remove_widget(self.adddialog_audio)
+     
+        #Continue to detect images in classifyobject.py        
+        #self.continue_detection_value set value to 0 to continue detecting
+        self.continue_detection_value = 0      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
