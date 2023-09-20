@@ -956,7 +956,7 @@ class MyApp(MDApp):
         
     #def remove_dialog(self, *args): 
     def remove_dialog_audio(self):      
-        print("we removed show_alert_dialog")
+        print("we at def remove_dialog_audio")
         #self.addsettings = Settings()  
         #self.layout.add_widget(self.addsettings) 
         #self.layout.remove_widget(self.adddialog)  
