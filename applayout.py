@@ -398,7 +398,7 @@ class Content(MDCard):
         self.object_all_info = lst1[1]
         self.object_info_1 = lst1[2]
         self.object_info_2 = lst1[3]
-        self.content_object = lst1[4]
+       
         
         print(self.detected_object_name)
         print(self.object_all_info)
