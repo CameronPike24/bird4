@@ -292,10 +292,18 @@ class ButtonLayoutObjectDetection(RelativeLayout):
         print("self.btn.pos_hint")
         print(self.btn.pos_hint)
         #self.saved_y = self.btn.y
+        
+        
+        
+        
 
 class ButtonLayoutAudioDetection(RelativeLayout):
 
-    birdname = StringProperty()
+    object_all_info = StringProperty()
+    detected_object_name = StringProperty()
+    object_info_1 = StringProperty()
+    object_info_2 = StringProperty()
+   
    
     
     def __init__(self, **kwargs):
@@ -315,7 +323,7 @@ class ButtonLayoutAudioDetection(RelativeLayout):
         self.detected_object_name = birdclass
         self.object_info_1 = info1
         self.object_info_2 = info2
-        self.birdname = birdclass
+        #self.birdname = birdclass
         
         
         

@@ -104,14 +104,18 @@
         
 <ButtonLayoutAudioDetection>:  
 
-    birdname:
+    
+    object_all_info:
+    detected_object_name:
+    object_info_1:
+    object_info_2:
     
     MDFillRoundFlatIconButton:
         id:info 
         icon: "information-outline"
        
         text: ''
-        on_press: root.remove_btn(), app.show_alert_dialog_audio(root.birdname)
+        on_press: root.remove_btn(), app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}            
         
             
