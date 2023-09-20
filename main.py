@@ -938,7 +938,8 @@ class MyApp(MDApp):
 
 
     def show_alert_dialog_audio(self,detected_object_name_audio,object_all_info, object_info_1, object_info_2):   
-        print("we at show_alert_dialog")
+        print("we at show_alert_dialog_audio")
+        print(detected_object_name_audio)
         #Stop the clock schedule from removing the info button as dialog was opened
         #self.cancel_remove_button_time_expired(self)
        
@@ -948,6 +949,8 @@ class MyApp(MDApp):
         self.recorder.add_widget(self.adddialog_audio)
        
         self.adddialog_audio.add_img_name(detected_object_name_audio, object_all_info, object_info_1, object_info_2)      
+     
+        
         #self.adddialog.add_img_name(self.detected_object_name, self.object_all_info) 
 
         
