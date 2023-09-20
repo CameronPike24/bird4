@@ -295,7 +295,7 @@ class ButtonLayoutObjectDetection(RelativeLayout):
 
 class ButtonLayoutAudioDetection(RelativeLayout):
 
-   
+    birdname = StringProperty()
    
     
     def __init__(self, **kwargs):
@@ -315,6 +315,7 @@ class ButtonLayoutAudioDetection(RelativeLayout):
         self.detected_object_name = birdclass
         self.object_info_1 = info1
         self.object_info_2 = info2
+        self.birdname = birdclass
         
         
         
