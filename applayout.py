@@ -1235,6 +1235,7 @@ class RecordForm(MDScreen):
         
         
         self.highest_inference_value = float(self.highest_inference_value )
+        self.highest_inference_value = round(self.highest_inference_value,2)
         print(self.highest_inference_value)
         
         
@@ -1284,38 +1285,39 @@ class RecordForm(MDScreen):
         
         
         
+        ###########################################################
+        #Only display the button if the inference value is high ie a good match in the model
+        ##########################################################
+        if(self.highest_inference_value > 0.96):              
         
+            self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
+            self.display_audio_detection_button_value = 0
         
-        
-        
-        
-        self.display_audio_detection_button = ButtonLayoutAudioDetection()
-        
-        self.display_audio_detection_button_value = 0
-        
-        if(self.display_audio_detection_button_value == 0):   
-            #self.layout.add_widget(self.start_object_detection_button) 
-            self.add_widget(self.display_audio_detection_button) 
-            self.display_audio_detection_button_value = 1
+            if(self.display_audio_detection_button_value == 0):   
+                #self.layout.add_widget(self.start_object_detection_button) 
+                self.add_widget(self.display_audio_detection_button) 
+                self.display_audio_detection_button_value = 1
             
-        #Keep track of how many buttons are displayed
-        audio_button_displayed_count = audio_button_displayed_count + 1   
+            #Keep track of how many buttons are displayed
+            audio_button_displayed_count = audio_button_displayed_count + 1   
             
-        #Layer the buttons from bottom to top on the screen by using the position hint
-        #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
-        self.position_hint_x = 0.1
-        self.position_hint_y = audio_button_displayed_count/10   
+            #Layer the buttons from bottom to top on the screen by using the position hint
+            #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
+            self.position_hint_x = 0.1
+            self.position_hint_y = audio_button_displayed_count/10   
         
-        ########################################################
-        #Display the info button showing the birds name
-        #######################################################
+            ########################################################
+            #Display the info button showing the birds name
+            #######################################################
 
-        self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
+            self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
         
-        if(audio_button_displayed_count == 5):
-           audio_button_displayed_count = 0
-           #Remove the previous buttons 
+            if(audio_button_displayed_count == 5):
+               audio_button_displayed_count = 0
+               #Remove the previous buttons 
+               
+               
         
         #######################################################################################
         #Call start to start the readbuffer, start the mic and empty the buffer
