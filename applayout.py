@@ -592,6 +592,12 @@ class RecordForm(MDScreen):
  
     def mic_callback(self, buf):
     
+        #######################################################################
+        #mic_callback gets polled every few milliseconds so this function runs continuously
+        #The main function is to append data to sDatat buffer
+        #If the amplitude is high enough and self.recording_has_started == False
+        #then this function starts recording and appends the sData buffer. It stops recording after 2 seconds
+        ######################################################################
         print("we at mic_callback")
     
         global levels
@@ -685,33 +691,60 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         
         
-        ######################
-        #If amplitude is over 100 then start recording
-        ######################
+        ##############################################################
+        #If amplitude is over 100 then start recording - this is just for testing and will change
+        ##############################################################
         self.amplitude_high = 101
         self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
+        
         print("self.amplitude_high")
         print(self.amplitude_high)
         print("self.recording_has_started")
         print(self.recording_has_started)
         
         
+        ##########################################################################
+        #The first time the program runs self.recording_has_started
+        #was set to false which was set at initialization in the RecordForm class
+        #When we start recording we set self.recording_has_started = True
+        ##########################################################################
+        
         if self.amplitude_high > 100 and self.recording_has_started == False:
         
-            print("self.amplitude_high > 100 AND self.recording_has_started == False")           
+            print("self.amplitude_high > 100 AND self.recording_has_started == False")       
+            
+            #######################################################
+            #Set self.recording_has_started = True so the next pass of this if statement we will not call self.stop again
+            #######################################################
+                
             self.recording_has_started = True
             print("self.recording_has_started")
             print(self.recording_has_started)
+            
+            ##############################################
+            #We are now recording and appensing sData buffer while the mic_callback runs every few milliseconds 
+            #We will continue to record for the next 2 seconds (set in self.record_time).
+            #Then we will call self.stop that stops the microphone,
+            #creates the wave file and does inference looking for an audio match
+            ##############################################
+            
             Clock.schedule_once(self.stop,self.record_time)
         
             
             
         else:  
         
+            #self.recording_has_started == True so do nothing while we are recording
             pass   
             
             
-            
+        
+        ###############################################################
+        #If  self.recording_has_started == True then dont empty the buffer as we are still recording
+        #If  self.recording_has_started == False then we are not recording we can empty the buffer
+        #or else it fills up
+        ###############################################################
+          
         if self.recording_has_started == False: 
             print("if self.recording_has_started is False")
             print("we emptying the buffer")
@@ -746,6 +779,11 @@ class RecordForm(MDScreen):
     
 
     def start_record(self):
+        #############################################################
+        #This function is called from the setupkv file
+        #When the start record button is pressed this function is called
+        #############################################################
+        
         #self.b_record.disabled = True
         #self.p_bar.max = recordtime
         #REC.prepare()
@@ -814,14 +852,19 @@ class RecordForm(MDScreen):
         
  
     def start(self):
-        #Clear buffer
-        #self.sData = []
+        ###########################################################
+        #Called from start_record when the start button was pressed
+        #Clears sData buffer
+        #Starts mic and starts polling mic which calls mic_callback 
+        ###########################################################
+        
         self.empty_buffer()
         levels = []
         
         self.mic.start()
         print("Completed self.mic.start()")
         Clock.schedule_interval(self.readbuffer, 1/samples_per_second)
+        
         print("samples per second")
         print(samples_per_second)
         print("def start(self)")
@@ -843,9 +886,23 @@ class RecordForm(MDScreen):
                 
  
     def stop(self,dt):
+        ################################################################
+        #This function is called from mic_callback using a clock schedule_once
+        #that is started when recording is finished after 2 seconds
+        #This function creates the wave file and does the inference to match the 
+        #audio from the model
+        ###############################################################
+    
+    
+    
         Clock.schedule_once(self.dummy, 0.5)
+        
+        #Stop the microphone polling so no more buffer data coming in
         Clock.unschedule(self.readbuffer)
+        #Stop the microphone
         self.mic.stop()
+        
+        #Start creating the wave file
         wf = wave.open(PATH, 'wb')
         wf.setnchannels(self.mic.channels)
         wf.setsampwidth(2)
@@ -877,7 +934,7 @@ class RecordForm(MDScreen):
         self.audio_inchannels = 1
         self.audio_outchannels = 1      
         
-        #Start downsample 
+        #Start downsampling of wave file as the model is trained on 16000 and we receiving 44100
         self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)        
                 
         if self.downsample_success == True:
@@ -1171,6 +1228,12 @@ class RecordForm(MDScreen):
         result_index_array = mean_results_array.argmax()
         print("result_index_array")
         print(result_index_array)
+        
+        #Print the highest value at that index
+        print("Highest value for result_index_array")
+        print(mean_results_array[result_index_array])
+        
+        
         #print(f'Mean result: {test_data.index_to_label[result_index]} -> {mean_results[result_index]}')
         #print(_label_list_1[top_class_index]) 
         print("bird class")
@@ -1239,6 +1302,10 @@ class RecordForm(MDScreen):
         #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
         self.position_hint_x = 0.1
         self.position_hint_y = audio_button_displayed_count/10   
+        
+        ########################################################
+        #Display the info button showing the birds name
+        #######################################################
 
         self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
         
@@ -1246,9 +1313,12 @@ class RecordForm(MDScreen):
            audio_button_displayed_count = 0
            #Remove the previous buttons 
         
-        
+        #######################################################################################
         #Call start to start the readbuffer, start the mic and empty the buffer
+        #Note that we have the mic currently stopped so we not receiving any data
         #Note that self.recording_has_started is still False. We reset it after the scores so as to prevent any new recording starting before we finished analysing
+        #self.recording_has_started = False will now activate the recording if the amplitude is high enough
+        ########################################################################################3
         self.recording_has_started = False 
         self.start()
  
