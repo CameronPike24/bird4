@@ -1234,7 +1234,7 @@ class RecordForm(MDScreen):
         self.highest_inference_value = mean_results_array[0,result_index_array]
         
         
-        self.highest_inference_value = int(float(self.highest_inference_value ))
+        self.highest_inference_value = float(self.highest_inference_value )
         print(self.highest_inference_value)
         
         
