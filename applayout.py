@@ -1231,7 +1231,11 @@ class RecordForm(MDScreen):
         
         #Print the highest value at that index
         print("Highest value for result_index_array")
-        print(mean_results_array[result_index_array])
+        self.highest_inference_value = mean_results_array[0,result_index_array]
+        
+        
+        self.highest_inference_value = int(float(self.highest_inference_value ))
+        print(self.highest_inference_value)
         
         
         #print(f'Mean result: {test_data.index_to_label[result_index]} -> {mean_results[result_index]}')
