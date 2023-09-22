@@ -89,7 +89,7 @@ Builder.load_string("""
             
         MDIconButton:
             #icon: "icons/magnify-scan.png"
-            icon: "weather-lightning"
+            icon: "volume-high"
 
             #increment_width: "164dp"
             #width: dp(280)
@@ -149,7 +149,7 @@ Builder.load_string("""
             
         MDIconButton:
             #icon: "icons/magnify-scan.png"
-            icon: "fish"
+            icon: "bird"
 
             #increment_width: "164dp"
             #width: dp(280)

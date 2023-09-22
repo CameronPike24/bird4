@@ -48,11 +48,11 @@ requirements = python3==3.9.12,kivy,camera4kivy,gestures4kivy,numpy,tflite-runti
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/icons/fishlogo.png
+presplash.filename = %(source.dir)s/icons/birdlogo.png
 
 # (str) Icon of the application
 #icon.filename = %(source.dir)s/data/icon.png
-icon.filename = %(source.dir)s/icons/fishlogo.png
+icon.filename = %(source.dir)s/icons/birdlogo.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 #orientation = all

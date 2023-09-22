@@ -8,7 +8,7 @@
         orientation: 'vertical'
         MDTopAppBar:            
             title: 'BirdID SA'
-            left_action_items: [["fish", lambda x: app.navigation_draw()]]
+            left_action_items: [["bird", lambda x: app.navigation_draw()]]
             right_action_items: [["information-outline", lambda *args : setattr(root.manager, "current", "screen_two")], ["exit-to-app", lambda x: app.stop()]]
            
             
@@ -483,7 +483,8 @@
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
-            size_hint: [0.6, .8]
+            #size_hint: [0.6, .8]
+            size_hint: [1, .8]
             Graph:
                 id: graph
                 xlabel: ""

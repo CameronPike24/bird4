@@ -902,9 +902,11 @@ class RecordForm(MDScreen):
         #Stop the microphone
         self.mic.stop()
         
-        
+        '''
         with open('myfile.wav', mode='bx') as f:
             f.write(self.sData)
+        '''
+        
         
         #Start creating the wave file
         wf = wave.open(PATH, 'wb')
