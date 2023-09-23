@@ -967,9 +967,9 @@ class MyApp(MDApp):
         self.continue_detection_value = 0      
 
 
+    def remove_record_layout(self): 
 
-
-
+        self.recorder.remove_widget(self.recorderform)  
 
 
 

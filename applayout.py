@@ -883,6 +883,23 @@ class RecordForm(MDScreen):
         self.sData = []
         
         
+        
+    def stop_close_audio(self):
+        ################################################################
+        #This function is called from the stop button 
+        ###############################################################   
+    
+    
+        #Clock.schedule_once(self.dummy, 0.5)
+        
+        #Stop the microphone polling so no more buffer data coming in
+        Clock.unschedule(self.readbuffer)
+        #Stop the microphone
+        self.mic.stop()   
+        
+        
+        
+             
                 
  
     def stop(self,dt):
