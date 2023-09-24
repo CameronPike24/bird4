@@ -209,7 +209,9 @@
             pos_hint: {"center_x": .5, "center_y": .05}
             text: "Close"
             #on_press: root.remove_audio_dialog()
-            on_press: app.remove_dialog_audio(), root.manager.current = 'screen_one'
+            on_press: 
+                app.remove_dialog_audio()
+                #root.manager.current = "screen_one"
             #on_press: app.remove_show_alert_dialog()
 
 

@@ -970,6 +970,7 @@ class MyApp(MDApp):
     def remove_record_layout(self): 
 
         self.recorder.remove_widget(self.recorderform)  
+        screen_manager.current = 'screen_one'
 
 
 
