@@ -485,6 +485,7 @@ class RecordForm(MDScreen):
         self.decoded = []
         self.decoded_copy = []
         self.recording_has_started = False
+        self.amplitude_high = 0
         
         
         
@@ -712,7 +713,7 @@ class RecordForm(MDScreen):
         
         if self.amplitude_high > 1000 and self.recording_has_started == False:
         
-            print("self.amplitude_high > 100 AND self.recording_has_started == False")       
+            print("self.amplitude_high > 1000 AND self.recording_has_started == False")       
             
             #######################################################
             #Set self.recording_has_started = True so the next pass of this if statement we will not call self.stop again
