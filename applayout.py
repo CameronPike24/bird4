@@ -471,6 +471,7 @@ class RecordForm(MDScreen):
         self.BufferSize = self.AudioRecord.getMinBufferSize(self.SampleRate, self.ChannelConfig, self.AudioEncoding)
         #self.outstream = self.FileOutputStream(PATH)
         self.sData = []
+        self.copy_sData = []
         #self.mic = get_input(callback=self.mic_callback, source='mic', buffersize=self.BufferSize)
         self.mic = get_input(callback=self.mic_callback, source='default', buffersize=self.BufferSize)
         print("This is the audio source")
@@ -682,7 +683,7 @@ class RecordForm(MDScreen):
         print(self.decoded_copy)        
         
         
-        #Add self.decoded audio to queue         
+        #Add self.decoded audio to queue ** This is a queue so dont need to empty        
         self.queue_frames = self.decoded_copy
         
         #empty self.decoded
@@ -914,23 +915,23 @@ class RecordForm(MDScreen):
     
         Clock.schedule_once(self.dummy, 0.5)
         
+        '''
         #Stop the microphone polling so no more buffer data coming in
         Clock.unschedule(self.readbuffer)
         #Stop the microphone
         self.mic.stop()
-        
-        '''
-        with open('myfile.wav', mode='bx') as f:
-            f.write(self.sData)
         '''
         
+        #Get a copy of the audio data to analyze it. Allow sData to continue collecting audio for the graph 
+        self.copy_sData = self.sData
+      
         
         #Start creating the wave file
         wf = wave.open(PATH, 'wb')
         wf.setnchannels(self.mic.channels)
         wf.setsampwidth(2)
         wf.setframerate(self.mic.rate)
-        wf.writeframes(b''.join(self.sData))
+        wf.writeframes(b''.join(self.copy_sData))
         print("we at stop")
         wf.close()
         
@@ -1216,6 +1217,9 @@ class RecordForm(MDScreen):
         #####################################################################
         global audio_button_displayed_count
         ##
+        
+        
+        '''
         #Do a fake graph plot now as we have stopped the mic input else the graph stops plotting
         ##
         try:
@@ -1228,6 +1232,9 @@ class RecordForm(MDScreen):
         except:           
 
             pass
+        '''
+        
+        
         
         results_array = []
         for i, data in enumerate(self.waveform):
@@ -1343,13 +1350,15 @@ class RecordForm(MDScreen):
                
         
         #######################################################################################
-        #Call start to start the readbuffer, start the mic and empty the buffer
-        #Note that we have the mic currently stopped so we not receiving any data
-        #Note that self.recording_has_started is still False. We reset it after the scores so as to prevent any new recording starting before we finished analysing
+        #Note that self.recording_has_started is now False. We reset it from True after the scores so as to prevent any new recording starting before we finished analysing
         #self.recording_has_started = False will now activate the recording if the amplitude is high enough
         ########################################################################################3
         self.recording_has_started = False 
-        self.start()
+        #Clear sData
+        self.empty_buffer()
+        #Clear the copy of sData
+        self.copy_sData = []
+        #self.start()
  
 
 
