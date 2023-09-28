@@ -695,7 +695,7 @@ class RecordForm(MDScreen):
         ##############################################################
         #If amplitude is over 100 then start recording - this is just for testing and will change
         ##############################################################
-        self.amplitude_high = 101
+        #self.amplitude_high = 101
         self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
         
         print("self.amplitude_high")
@@ -710,7 +710,7 @@ class RecordForm(MDScreen):
         #When we start recording we set self.recording_has_started = True
         ##########################################################################
         
-        if self.amplitude_high > 100 and self.recording_has_started == False:
+        if self.amplitude_high > 1000 and self.recording_has_started == False:
         
             print("self.amplitude_high > 100 AND self.recording_has_started == False")       
             
@@ -750,6 +750,8 @@ class RecordForm(MDScreen):
             print("if self.recording_has_started is False")
             print("we emptying the buffer")
             self.empty_buffer()
+            #Delete the copy of sData as well
+            self.copy_sData = []
         else:
             pass    
         
@@ -896,7 +898,12 @@ class RecordForm(MDScreen):
         #Stop the microphone polling so no more buffer data coming in
         Clock.unschedule(self.readbuffer)
         #Stop the microphone
-        self.mic.stop()   
+        self.mic.stop()  
+        #Clear all buffers      
+        self.sData = []
+        self.copy_sData = []
+        self.decoded = []
+        self.decoded_copy = []
         
         
         
