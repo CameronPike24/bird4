@@ -694,10 +694,22 @@ class RecordForm(MDScreen):
         
         
         ##############################################################
-        #If amplitude is over 100 then start recording - this is just for testing and will change
+        #If amplitude is over 1000 then start recording - this is just for testing and will change
         ##############################################################
         #self.amplitude_high = 101
         self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
+        
+        result_index_sData = self.sData.argmax()
+        print("result_index_sData")
+        print(result_index_sData)
+        
+       
+        print("Highest amplitude value for result_index_sData")
+        self.amplitude_high = sData[0,result_index_sData]
+        
+        
+        
+        
         
         print("self.amplitude_high")
         print(self.amplitude_high)
@@ -921,7 +933,7 @@ class RecordForm(MDScreen):
     
     
     
-        Clock.schedule_once(self.dummy, 0.5)
+        Clock.schedule_once(self.dummy, 0.1)
         
         '''
         #Stop the microphone polling so no more buffer data coming in
@@ -948,6 +960,8 @@ class RecordForm(MDScreen):
         
         print("contents of sData")
         print(self.sData)
+        print("contents of copy_sData")
+        print(self.copy_sData)        
         
 
         
