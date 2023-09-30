@@ -699,6 +699,9 @@ class RecordForm(MDScreen):
         #self.amplitude_high = 101
         self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
         
+        self.amplitude_high = max(self.sData)
+        '''
+        
         #Convert to np array to use argmax
         results_np_array_sData = np.array(self.sData)
         result_index_sData = results_np_array_sData.argmax()
@@ -709,7 +712,7 @@ class RecordForm(MDScreen):
         print("Highest amplitude value for result_index_sData")
         #This is a 1-dimensional array so get the value with the index
         self.amplitude_high = results_np_array_sData[result_index_sData]
-        
+        '''
         
         
         
