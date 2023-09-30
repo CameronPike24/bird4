@@ -687,10 +687,7 @@ class RecordForm(MDScreen):
         #Add self.decoded audio to queue ** This is a queue so dont need to empty        
         self.queue_frames = self.decoded_copy
         
-        #empty self.decoded
-        self.decoded = []
-        #empty self.decoded_copy
-        self.decoded_copy = []
+
         
         
         ##############################################################
@@ -699,7 +696,13 @@ class RecordForm(MDScreen):
         #self.amplitude_high = 101
         self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
         
-        self.amplitude_high = max(self.sData)
+        self.amplitude_high = max(self.decoded)
+        
+        #empty self.decoded
+        self.decoded = []
+        #empty self.decoded_copy
+        self.decoded_copy = []        
+     
         '''
         
         #Convert to np array to use argmax
