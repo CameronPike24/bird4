@@ -707,7 +707,8 @@ class RecordForm(MDScreen):
         
        
         print("Highest amplitude value for result_index_sData")
-        self.amplitude_high = results_np_array_sData[0,result_index_sData]
+        #This is a 1-dimensional array so get the value with the index
+        self.amplitude_high = results_np_array_sData[result_index_sData]
         
         
         
