@@ -1329,6 +1329,8 @@ class RecordForm(MDScreen):
         
         #list_row = data[[3][0]]
         list_row = data[[index_of_list_value][0]]
+        print('list_row = data[[index_of_list_value][0]]')
+        print(list_row)
         
         #self.detected_object_name_1 = list_row[1]
         #print('sef.detected_object_name_1')
@@ -1342,6 +1344,14 @@ class RecordForm(MDScreen):
         self.object_general_info = list_row[1]
         self.object_info_1 = list_row[2]
         self.object_info_2 = list_row[3]
+        print('self.detected_object_name')
+        print(self.detected_object_name)
+        print('self.object_general_info')
+        print(self.object_general_info)
+        print('self.object_info_1')
+        print(self.object_info_1)
+        print('self.object_info_2')
+        print(self.object_info_1)
         
         
         
