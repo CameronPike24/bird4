@@ -209,15 +209,106 @@
             pos_hint: {"center_x": .5, "center_y": .05}
             text: "Close"
             #on_press: root.remove_audio_dialog()
+            #on_press: 
+                #app.remove_dialog_audio()
+                #root.manager.current = "screen_one"
+            on_press: app.remove_show_alert_dialog()
+
+
+
+
+<ContentAudio>:
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            #pos: self.pos
+            size: self.size   
+
+
+    #padding: 4
+    #size_hint: None, None
+    #size: "200dp", "100dp"
+    
+    #orientation: "vertical"  
+      
+    
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        Image:
+            #source: "icons/map-marker.png"
+            id: my_image
+            source: ''
+            size_hint: .5,.5
+            pos_hint: {"center_x": .5, "center_y": .75}
+
+        MDLabel: 
+            #id: location   
+            id: my_title        
+            text: ""
+            pos_hint: {"center_x": .5, "center_y": .45}
+            halign: "center"
+            font_size: "20sp"
+            
+       
+            
+        MDLabel: 
+            id: my_label          
+            text: ""
+            #markup: True
+            pos_hint: {"center_x": .5, "center_y": .35}
+            halign: "center"
+            font_size: "15sp"    
+            
+            
+
+                                        
+                                         
+        MDFloatLayout:   
+            pos_hint: {"center_x": .25, "center_y": .15}    
+            size_hint: .22,.1
+                 
+            MDIconButton:
+                icon: 'ruler'  
+                pos_hint: {"center_x": .1, "center_y": .3}            
+            
+            MDLabel:    
+                id:my_info_1                     
+                text: ""             
+                pos_hint: {"center_x": 1, "center_y": .5}            
+                font_size: "15sp"                            
+            
+
+                                   
+                      
+        MDFloatLayout:   
+            pos_hint: {"center_x": .7, "center_y": .15}    
+            size_hint: .22,.1
+                 
+            MDIconButton:             
+                icon: 'bag-checked'           
+                pos_hint: {"center_x": .1, "center_y": .3}            
+            
+            MDLabel:    
+                id:my_info_2                  
+                text: ""             
+                pos_hint: {"center_x": 1.1, "center_y": .5}            
+                font_size: "15sp"                            
+            
+    
+                                                    
+                
+        MDFlatButton:
+            md_bg_color: app.theme_cls.primary_color
+            #pos_hint: {"top": 1, "right": 1}
+            pos_hint: {"center_x": .5, "center_y": .05}
+            text: "Close"
+            #on_press: root.remove_audio_dialog()
             on_press: 
                 app.remove_dialog_audio()
                 #root.manager.current = "screen_one"
             #on_press: app.remove_show_alert_dialog()
-
-
-
-
-
 
 
 

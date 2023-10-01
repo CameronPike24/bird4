@@ -9,6 +9,7 @@ from applayout import ButtonsLayout
 from applayout import ButtonsLayoutInfo
 from applayout import ButtonLayoutObjectDetection
 from applayout import Content
+from applayout import ContentAudio
 from applayout import Settings
 from applayout import Weather
 from applayout import RecordForm
@@ -919,6 +920,9 @@ class MyApp(MDApp):
       
         self.layout.add_widget(self.adddialog)   
         self.adddialog.add_img_name(self.detected_object_name, self.object_all_info, self.object_info_1, self.object_info_2)   
+        
+        
+        
 
 
     def remove_show_alert_dialog(self, *args):   
@@ -943,7 +947,7 @@ class MyApp(MDApp):
         #Stop the clock schedule from removing the info button as dialog was opened
         #self.cancel_remove_button_time_expired(self)
        
-        self.adddialog_audio = Content()  
+        self.adddialog_audio = ContentAudio()  
       
         #self.layout.add_widget(self.adddialog)   
         self.recorder.add_widget(self.adddialog_audio)

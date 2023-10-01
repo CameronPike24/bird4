@@ -413,6 +413,54 @@ class Content(MDCard):
         self.my_info_2.text = self.object_info_2
         
 
+
+ 
+ 
+class ContentAudio(MDCard):
+
+ 
+
+    def __init__(self, **kwargs):
+        #self.window = Window
+        super(ContentAudio, self).__init__(**kwargs)
+        self.img = self.ids['my_image']
+        self.lbl = self.ids['my_label']
+        self.my_title = self.ids['my_title']
+        self.my_info_1 = self.ids['my_info_1']
+        self.my_info_2 = self.ids['my_info_2']      
+        
+
+    
+    
+    
+    def add_img_name(self, *args):    
+
+    
+        lst1 = []
+        print("hello")
+        for arg in args:
+            #self.new_text = arg
+            lst1.append(arg)
+            print("args")  
+        self.detected_object_name = lst1[0]     
+        self.object_all_info = lst1[1]
+        self.object_info_1 = lst1[2]
+        self.object_info_2 = lst1[3]
+       
+        
+        print(self.detected_object_name)
+        print(self.object_all_info)
+        self.image_full_path = "images/" + self.detected_object_name + ".png"
+        
+        self.img.source = self.image_full_path
+        self.detected_object_name = self.detected_object_name.replace("-", " ")
+        self.my_title.text = self.detected_object_name.title()
+        
+        self.lbl.text = self.object_all_info
+        self.my_info_1.text = self.object_info_1
+        self.my_info_2.text = self.object_info_2
+        
+
     def remove_audio_dialog(self):        
         #self.remove_dialog_audio = ButtonLayoutAudioDetection()
         
@@ -424,7 +472,10 @@ class Content(MDCard):
         #self.remove_dialog_audio.remove_widget(self.adddialog)
         #self.remove_dialog_audio.remove_widget(self.content_object)
         
-        #self.remove_dialog_audio.remove_dialog()  
+        #self.remove_dialog_audio.remove_dialog()   
+ 
+ 
+ 
         
 
 class Settings(MDCard):  
