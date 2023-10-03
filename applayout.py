@@ -805,7 +805,8 @@ class RecordForm(MDScreen):
             ##############################################
             
             Clock.schedule_once(self.stop,self.record_time)
-        
+            #Reset max amplitude
+            self.amplitude_high = 0
             
             
         else:  
