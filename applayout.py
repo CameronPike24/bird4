@@ -537,6 +537,7 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         self.recording_has_started = False
         self.amplitude_high = 0
+        self.audio_button_displayed_count = 0
         
         
         
@@ -781,11 +782,12 @@ class RecordForm(MDScreen):
         #The first time the program runs self.recording_has_started
         #was set to false which was set at initialization in the RecordForm class
         #When we start recording we set self.recording_has_started = True
+        #Only record when the amplitude is high ie there is a bird call
         ##########################################################################
         
-        if self.amplitude_high > 1000 and self.recording_has_started == False:
+        if self.amplitude_high > 10000 and self.recording_has_started == False:
         
-            print("self.amplitude_high > 1000 AND self.recording_has_started == False")       
+            print("self.amplitude_high > 10000 AND self.recording_has_started == False")       
             
             #######################################################
             #Set self.recording_has_started = True so the next pass of this if statement we will not call self.stop again
@@ -1414,20 +1416,25 @@ class RecordForm(MDScreen):
         
             self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
-            self.display_audio_detection_button_value = 0
-        
+            #self.display_audio_detection_button_value = 0
+            
+            '''
             if(self.display_audio_detection_button_value == 0):   
                 #self.layout.add_widget(self.start_object_detection_button) 
                 self.add_widget(self.display_audio_detection_button) 
                 self.display_audio_detection_button_value = 1
+            '''    
+            
+            
+            self.add_widget(self.display_audio_detection_button)                          
             
             #Keep track of how many buttons are displayed
-            audio_button_displayed_count = audio_button_displayed_count + 1   
+            self.audio_button_displayed_count = self.audio_button_displayed_count + 1   
             
             #Layer the buttons from bottom to top on the screen by using the position hint
-            #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
-            self.position_hint_x = 0.1
-            self.position_hint_y = audio_button_displayed_count/10   
+            #Divide the audio_button_displayed_count by 10 to get 0.2, 0.4,0.6,0.8,1
+            self.position_hint_x = 0.2
+            self.position_hint_y = audio_button_displayed_count/5   
         
             ########################################################
             #Display the info button showing the birds name
