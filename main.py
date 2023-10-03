@@ -968,7 +968,6 @@ class MyApp(MDApp):
      
         #Continue to detect images in classifyobject.py        
         #self.continue_detection_value set value to 0 to continue detecting
-        
         self.continue_detection_value = 0      
 
 
