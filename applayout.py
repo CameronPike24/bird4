@@ -1430,7 +1430,7 @@ class RecordForm(MDScreen):
             self.add_widget(self.display_audio_detection_button)                          
             
             #Keep track of how many buttons are displayed
-            self.audio_button_displayed_count = self.audio_button_displayed_count + 1   
+            audio_button_displayed_count = audio_button_displayed_count + 1   
             
             #Layer the buttons from bottom to top on the screen by using the position hint
             #Divide the audio_button_displayed_count by 10 to get 0.2, 0.4,0.6,0.8,1
