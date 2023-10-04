@@ -783,7 +783,7 @@ class RecordForm(MDScreen):
         #When we start recording we set self.recording_has_started = True
         ##########################################################################
         
-        if self.amplitude_high > 1000 and self.recording_has_started == False:
+        if self.amplitude_high > 2000 and self.recording_has_started == False:
         
             print("self.amplitude_high > 1000 AND self.recording_has_started == False")       
             
@@ -1414,6 +1414,8 @@ class RecordForm(MDScreen):
         
             self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
+            
+            '''
             self.display_audio_detection_button_value = 0
         
             if(self.display_audio_detection_button_value == 0):   
@@ -1423,11 +1425,17 @@ class RecordForm(MDScreen):
             
             #Keep track of how many buttons are displayed
             audio_button_displayed_count = audio_button_displayed_count + 1   
+            '''
+            
+            
+            self.add_widget(self.display_audio_detection_button)
             
             #Layer the buttons from bottom to top on the screen by using the position hint
             #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
-            self.position_hint_x = 0.1
-            self.position_hint_y = audio_button_displayed_count/10   
+            #self.position_hint_x = 0.1
+            self.position_hint_x = 0.5
+            #self.position_hint_y = audio_button_displayed_count/10  
+            self.position_hint_y = 0.5 
         
             ########################################################
             #Display the info button showing the birds name
@@ -1435,10 +1443,11 @@ class RecordForm(MDScreen):
 
             self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
         
+            '''
             if(audio_button_displayed_count == 5):
                audio_button_displayed_count = 0
                #Remove the previous buttons 
-               
+            '''   
                
         
         #######################################################################################
