@@ -117,6 +117,7 @@
         text: ''
         #on_press: root.remove_btn(), app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)
         on_press: app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)
+        root.remove_btn()
         #pos_hint: {'center_x': 0.5, 'center_y': 0.5}            
         
             
@@ -307,8 +308,7 @@
             text: "Close"
             #on_press: root.remove_audio_dialog()
             on_press: 
-                app.remove_dialog_audio()
-                root.remove_btn()
+                app.remove_dialog_audio()                
                 #root.manager.current = "screen_one"
             #on_press: app.remove_show_alert_dialog()
 

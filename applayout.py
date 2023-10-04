@@ -785,7 +785,7 @@ class RecordForm(MDScreen):
         
         if self.amplitude_high > 2000 and self.recording_has_started == False:
         
-            print("self.amplitude_high > 1000 AND self.recording_has_started == False")       
+            print("self.amplitude_high > 2000 AND self.recording_has_started == False")       
             
             #######################################################
             #Set self.recording_has_started = True so the next pass of this if statement we will not call self.stop again
