@@ -978,9 +978,15 @@ class MyApp(MDApp):
 
 
 
+    def stop_audio(self): 
+
+        self.recorderform.stop_close_audio() 
+        
 
 
+    def start_audio(self): 
 
+        self.recorderform.start() 
 
 
 
