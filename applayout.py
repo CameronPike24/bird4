@@ -1479,7 +1479,7 @@ class RecordForm(MDScreen):
 
 
 
-    def remove_audio_detection_button(self,dt)    
+    def remove_audio_detection_button(self,dt):   
         self.remove_widget(self.display_audio_detection_button)
         self.display_audio_detection_button_active = False
     
