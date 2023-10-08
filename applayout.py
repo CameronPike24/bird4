@@ -1447,11 +1447,17 @@ class RecordForm(MDScreen):
                 self.remove_widget(self.display_audio_detection_button)
                 
                 
-            self.add_widget(self.display_audio_detection_button)    
+            self.add_widget(self.display_audio_detection_button)  
+            #Remove the button after 5 seconds
+            Clock.schedule_once(self.remove_audio_detection_button,5)
+            
+              
             
             self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
             #Activate button
             self.display_audio_detection_button_active = True
+            
+            
             '''
             if(audio_button_displayed_count == 5):
                audio_button_displayed_count = 0
@@ -1472,6 +1478,13 @@ class RecordForm(MDScreen):
  
 
 
+
+    def remove_audio_detection_button(self,dt)    
+        self.remove_widget(self.display_audio_detection_button)
+        self.display_audio_detection_button_active = False
+    
+    
+    
 
     def perform_inference(self,wave_input_index,audio_frame):
 
