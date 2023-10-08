@@ -537,6 +537,7 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         self.recording_has_started = False
         self.amplitude_high = 0
+        self.display_audio_detection_button_active == False
         
         
         
@@ -1428,7 +1429,7 @@ class RecordForm(MDScreen):
             '''
             
             
-            self.add_widget(self.display_audio_detection_button)
+            
             
             #Layer the buttons from bottom to top on the screen by using the position hint
             #Divide the audio_button_displayed_count by 10 to get 0.1, 0.2,0.3,0.4
@@ -1441,8 +1442,16 @@ class RecordForm(MDScreen):
             #Display the info button showing the birds name
             #######################################################
 
+            if(self.display_audio_detection_button_active == True):
+                #If the button is displayed already then remove it to show next bird
+                self.remove_widget(self.display_audio_detection_button)
+                
+                
+            self.add_widget(self.display_audio_detection_button)    
+            
             self.display_audio_detection_button.add_btn(self.bird_class,self.position_hint_x,self.position_hint_y,self.object_general_info,self.object_info_1,self.object_info_2)          
-        
+            #Activate button
+            self.display_audio_detection_button_active == True
             '''
             if(audio_button_displayed_count == 5):
                audio_button_displayed_count = 0
