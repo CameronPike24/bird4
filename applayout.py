@@ -537,7 +537,7 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         self.recording_has_started = False
         self.amplitude_high = 0
-        self.display_audio_detection_button_active == False
+        self.display_audio_detection_button_active = False
         
         
         
