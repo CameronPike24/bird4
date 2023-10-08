@@ -116,7 +116,8 @@
        
         text: ''
         #on_press: root.remove_btn(), app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)
-        on_press: root.remove_btn(), app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)        
+        #on_press: root.remove_btn(), app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)    
+        on_press: app.show_alert_dialog_audio(root.detected_object_name,root.object_all_info,root.object_info_1,root.object_info_2)     
         #pos_hint: {'center_x': 0.5, 'center_y': 0.5}            
         
             
