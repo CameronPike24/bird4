@@ -540,7 +540,8 @@ class RecordForm(MDScreen):
         self.display_audio_detection_button_active = False
         
         
-        
+    def __del__(self):
+        print("RecordForm object destroyed")        
         
         
         ###################################################

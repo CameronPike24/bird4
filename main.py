@@ -549,6 +549,7 @@ class MyApp(MDApp):
     
     def build(self):
         #Initialize continue detection
+        print("We at def build(self)")
         self.continue_detection_value = 0  
         #Initialize info button
         self.info_button_value = 0         
@@ -606,7 +607,8 @@ class MyApp(MDApp):
         #Add RecordForm class widget
         self.recorder = MDScreen(name="record_form")     
         self.recorderform = RecordForm()          
-        self.recorder.add_widget(self.recorderform)       
+        self.recorder.add_widget(self.recorderform) 
+        print("Added RecordForm class widget")      
        
            
         
@@ -973,7 +975,9 @@ class MyApp(MDApp):
 
     def remove_record_layout(self): 
 
+        print("def remove_record_layout")
         self.recorder.remove_widget(self.recorderform)  
+        del self.recorderform
         self.screen_manager.current = 'screen_one'
 
 
