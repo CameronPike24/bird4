@@ -540,8 +540,7 @@ class RecordForm(MDScreen):
         self.display_audio_detection_button_active = False
         
         
-    def __del__(self):
-        print("RecordForm object destroyed")        
+    
         
         
         ###################################################
@@ -644,6 +643,11 @@ class RecordForm(MDScreen):
         #Input: 0.975 seconds of silence as mono 16 kHz waveform samples.
         #waveform = np.zeros(int(round(0.975 * 16000)), dtype=np.float32)        
         
+
+
+    def __del__(self):
+        print("RecordForm object destroyed")    
+
  
     def mic_callback(self, buf):
     
