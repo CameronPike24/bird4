@@ -103,7 +103,8 @@ Builder.load_string("""
   
             on_press: 
                 #root.manager.transition = NoTransition()
-                root.manager.current = 'record_form'    
+                root.manager.current = 'record_form'   
+                app.start_recorder_screen() 
    
             
         MDLabel: 
@@ -606,10 +607,7 @@ class MyApp(MDApp):
        
         #Add RecordForm class widget
         self.recorder = MDScreen(name="record_form")     
-        self.recorderform = RecordForm()          
-        self.recorder.add_widget(self.recorderform) 
-        print("Added RecordForm class widget")      
-       
+
            
         
         self.addinfobutton = ButtonsLayoutInfo()  
@@ -651,8 +649,12 @@ class MyApp(MDApp):
 
         
         
-        
-        
+    def start_recorder_screen(self):                 
+        self.recorderform = RecordForm()          
+        self.recorder.add_widget(self.recorderform) 
+        print("Added RecordForm class widget")    
+          
+               
         
     def navigation_draw(self):
         print("Navigation")    
