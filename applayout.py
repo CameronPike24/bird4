@@ -74,7 +74,8 @@ class AppLayout(MDScreen):
             self.change_height = '0.75'
 
     
- 
+    def __del__(self):
+        print("AppLayout object destroyed")   
       
         
         
@@ -242,6 +243,12 @@ class ButtonLayoutObjectDetection(RelativeLayout):
 
         self.btn.pos_hint: {'center_x': 0.5, 'center_y': 0.5}        
         self.btn.text = info_posted
+        
+        
+
+                
+        
+        
         
       
     def show_more_info(self):

@@ -75,7 +75,8 @@ Builder.load_string("""
   
             on_press: 
                 #root.manager.transition = NoTransition()                
-                root.manager.current = 'app_layout'               
+                root.manager.current = 'app_layout'   
+                app.start_object_detection_screen()             
         
 
 
@@ -647,6 +648,13 @@ class MyApp(MDApp):
         
         #return kv
 
+    def start_object_detection_screen(self):                 
+        self.cameradetect = AppLayout()         
+        self.layout.add_widget(self.cameradetect) 
+        print("Added AppLayout class widget")        
+        
+       
+ 
         
         
     def start_recorder_screen(self):                 
@@ -984,8 +992,12 @@ class MyApp(MDApp):
 
 
 
+    def remove_applayout_layout(self): 
 
-
+        print("remove_applayout_layout")     
+        self.layout.remove_widget(self.cameradetect)  
+        del self.cameradetect
+        self.screen_manager.current = 'screen_one'
 
 
 

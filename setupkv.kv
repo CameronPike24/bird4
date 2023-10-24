@@ -36,25 +36,45 @@
 <AppLayout>:
 
      
-    change_height:
+  
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            #size_hint: [0.6, .8]
+            size_hint: [1, .8]
+
+            change_height:
         
-    elevation: 0
-    size_hint: (None,None)
-    size_hint: (1,root.change_height)
+            elevation: 0
+            #size_hint: (None,None)
+            #size_hint: (1,root.change_height)
 
-    pos_hint: {'center_x': 0.5, 'center_y': 0.5}    
+            #pos_hint: {'center_x': 0.5, 'center_y': 0.5}    
     
 
-    allow_stretch: True
-    keep_ratio: False 
+            allow_stretch: True
+            keep_ratio: False 
 
-    #letterbox_color: 'white'
+            #letterbox_color: 'white'
     
-    detect: self.ids.preview
-    ClassifyObject:        
-        id:preview       
+            detect: self.ids.preview
+            ClassifyObject:        
+                id:preview     
 
 
+        BoxLayout:
+            size_hint: [1, .2]
+            orientation: "horizontal"
+            Button:
+                text: "START"
+                bold: True
+                #on_press: root.start_record()
+            Button:
+                text: "STOP"
+                bold: True
+                #on_press: root.stop_close_audio(),app.remove_record_layout()  
+                on_press: app.remove_applayout_layout()
 
  
         
