@@ -605,7 +605,7 @@ class MyApp(MDApp):
        
         #Add RecordForm class widget
         self.recorder = MDScreen(name="record_form")     
-
+        self.layout = MDScreen(name="app_layout")
            
         
         self.addinfobutton = ButtonsLayoutInfo()  
@@ -620,6 +620,8 @@ class MyApp(MDApp):
         self.screen_manager.add_widget(ScreenFour(name ="screen_four"))
         self.screen_manager.add_widget(ScreenFive(name ="screen_five"))       
         #self.screen_manager.add_widget(AppLayout(name ="app_layout"))
+        
+        
         self.screen_manager.add_widget(self.layout)
         self.screen_manager.add_widget(self.recorder)
         
