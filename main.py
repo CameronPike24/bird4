@@ -582,13 +582,10 @@ class MyApp(MDApp):
        
        
        
-        #Add AppLayout class widget
-        self.layout = MDScreen(name="app_layout")     
-        self.cameradetect = AppLayout()          
-        self.layout.add_widget(self.cameradetect)
+
         
         
-        
+        '''
         #Add button to start object detection
         self.start_object_detection_button = ButtonLayoutObjectDetection()
         
@@ -600,7 +597,7 @@ class MyApp(MDApp):
             
         self.start_detection = 'Start'
         self.start_object_detection_button.add_btn(self.start_detection )        
-        
+        '''
         
         
         
@@ -653,7 +650,7 @@ class MyApp(MDApp):
         self.layout.add_widget(self.cameradetect) 
         print("Added AppLayout class widget")        
         
-       
+      
  
         
         
@@ -685,6 +682,7 @@ class MyApp(MDApp):
         
         
     def start_object_detection(self):
+        #Called from start button on camera view
         Clock.schedule_once(self.connect_camera)      
         
         
