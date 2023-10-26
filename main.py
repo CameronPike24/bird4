@@ -694,6 +694,13 @@ class MyApp(MDApp):
         #MDApp.root.applayout.detect.connect_camera(enable_analyze_pixels = True)
         #self.root.layout.detect.connect_camera(enable_analyze_pixels = True)
         self.cameradetect.detect.connect_camera(enable_analyze_pixels = True)
+        print("def connect_camera")
+        
+        
+        
+    def disconnect_camera(self):        
+        self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)        
+        print("def disconnect_camera")
         
       
         #pass
@@ -716,7 +723,7 @@ class MyApp(MDApp):
         #self.layout.detect.disconnect_camera()
         #self.layout.detect.disconnect_camera()
         self.cameradetect.detect.disconnect_camera()
-        del self.cameradetect
+        
         print("camera stopped")
         
         
@@ -997,7 +1004,7 @@ class MyApp(MDApp):
 
         print("remove_applayout_layout")     
         self.layout.remove_widget(self.cameradetect)  
-        
+        del self.cameradetect
         self.screen_manager.current = 'screen_one'
 
 
