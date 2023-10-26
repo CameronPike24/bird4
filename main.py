@@ -690,9 +690,8 @@ class MyApp(MDApp):
         
 
     def connect_camera(self,dt):    
-        #self.layout.detect.connect_camera(enable_analyze_pixels = True)
-        #MDApp.root.applayout.detect.connect_camera(enable_analyze_pixels = True)
-        #self.root.layout.detect.connect_camera(enable_analyze_pixels = True)
+        ####Camera4kivy - To connect the camera unit to the Preview call the preview's connect_camera() method, at least one timestep after on_start(). 
+        ####For example to connect the camera with the image analysis api enabled :
         self.cameradetect.detect.connect_camera(enable_analyze_pixels = True)
         print("def connect_camera")
         
@@ -701,6 +700,7 @@ class MyApp(MDApp):
     def disconnect_camera(self):        
         self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)        
         print("def disconnect_camera")
+        self.cameradetect.detect.disconnect_camera()
         
       
         #pass
