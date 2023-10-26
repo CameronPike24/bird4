@@ -700,7 +700,7 @@ class MyApp(MDApp):
     def disconnect_camera(self):        
         self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)        
         print("def disconnect_camera")
-        self.cameradetect.detect.disconnect_camera()
+        #self.cameradetect.detect.disconnect_camera()
         
       
         #pass
