@@ -716,6 +716,7 @@ class MyApp(MDApp):
         #self.layout.detect.disconnect_camera()
         #self.layout.detect.disconnect_camera()
         self.cameradetect.detect.disconnect_camera()
+        del self.cameradetect
         print("camera stopped")
         
         
@@ -996,7 +997,7 @@ class MyApp(MDApp):
 
         print("remove_applayout_layout")     
         self.layout.remove_widget(self.cameradetect)  
-        del self.cameradetect
+        
         self.screen_manager.current = 'screen_one'
 
 
