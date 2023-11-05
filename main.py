@@ -26,6 +26,7 @@ import json
 import requests
 from kivy.uix.screenmanager import ScreenManager, NoTransition
 from kivy.lang import Builder
+import time
 
  
  
@@ -698,10 +699,12 @@ class MyApp(MDApp):
         
         
     def disconnect_camera(self):        
-        self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)        
-        print("self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)")
+        #self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)        
+        #print("self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)")
         self.cameradetect.detect.disconnect_camera()
         print("self.cameradetect.detect.disconnect_camera()")
+        #Allow some time for the anaysis to stop
+        time.sleep(2)
       
         #pass
         
