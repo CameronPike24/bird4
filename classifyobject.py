@@ -85,6 +85,12 @@ class ClassifyObject(Preview):
     def analyze_pixels_callback(self, pixels, image_size, image_pos,
                                 image_scale, mirror):
                                 
+        print("at analyze_pixels_callback")
+        #If the camera is not connected then return
+        if not self.camera_connected:
+            return
+                   
+        
         #Counter to determine how many times object was detected                        
         self.detected_counter = 0 
         #Create list for probabilities
@@ -101,7 +107,7 @@ class ClassifyObject(Preview):
        
         
         
-        print("at analyze_pixels_callback")
+        
         now = time.time()
         fps = 0
         if now - self.start_time:
@@ -167,13 +173,19 @@ class ClassifyObject(Preview):
     ################################
         
     def canvas_instructions_callback(self, texture, tex_size, tex_pos):
+    
+        print("At canvas_instructions_callback")
+        #If the camera is not connected then return
+        if not self.camera_connected:
+            return    
+    
         # Add the analysis annotations
         #Color(0,1,0,1)
         Color(1,1,1,1)
         
         
         #Color(1, 1, 1,1)
-        print("At canvas_instructions_callback")
+        
         
         
         

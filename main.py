@@ -703,8 +703,9 @@ class MyApp(MDApp):
         #print("self.cameradetect.detect.connect_camera(enable_analyze_pixels = False)")
         self.cameradetect.detect.disconnect_camera()
         print("self.cameradetect.detect.disconnect_camera()")
-        #Allow some time for the anaysis to stop
-        time.sleep(2)
+        #Allow some time for the anaysis to stop as connecting to the camera starts the analyses and 
+        #disconnecting the camera stops the analyses but needs some time to avoid errors
+        time.sleep(0.5)
       
         #pass
         
