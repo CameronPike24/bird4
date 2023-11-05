@@ -156,9 +156,11 @@ class ClassifyObject(Preview):
         #self.classified = found
         if self.camera_connected:
             self.classified = found
+            print("camera is connected at make_thread_safe") 
         else:
             # Clear local state so no thread related ghosts on re-connect
-            self.classified = []        
+            self.classified = []   
+            print("camera is disconnected at make_thread_safe")     
 
     ################################
     # Canvas Update  - on UI Thread
