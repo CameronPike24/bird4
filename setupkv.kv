@@ -38,11 +38,11 @@
     detect: self.ids.preview  
   
 
-    BoxLayout:
+    FloatLayout:
         orientation: "vertical"
-        BoxLayout:
-            #size_hint: [0.6, .8]
-            size_hint: [1, .8]
+        FloatLayout:
+           
+            #size_hint: [1, .8]
 
             change_height:
         
@@ -55,6 +55,7 @@
 
             allow_stretch: True
             keep_ratio: False 
+            
 
             #letterbox_color: 'white'
     
@@ -63,7 +64,7 @@
                 id:preview     
 
 
-        BoxLayout:
+        FloatLayout:
             size_hint: [1, .2]
             orientation: "horizontal"
             Button:
@@ -601,7 +602,7 @@
         orientation: "vertical"
         BoxLayout:
             #size_hint: [0.6, .8]
-            size_hint: [1, .8]
+            size_hint: [1, .4]
             Graph:
                 id: graph
                 xlabel: ""
