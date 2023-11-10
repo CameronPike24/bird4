@@ -1054,13 +1054,20 @@ class RecordForm(MDScreen):
         self.audio_outchannels = 1      
         
         #Start downsampling of wave file as the model is trained on 16000 and we receiving 44100
-        self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)        
+        try:
+            self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels) 
+        except:
+            print("self.downsample_success failed")    
+            self.downsample_success = False   
                 
         if self.downsample_success == True:
             g = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
             print("downsampling completed at this time")
-            print(g)         
-            self.prepare_audio_frames()
+            print(g) 
+            try:                 
+                self.prepare_audio_frames()
+            except:
+                print("self.prepare_audio_frames() failed")
         else:
             print("Could not downsample")          
         
@@ -1223,7 +1230,7 @@ class RecordForm(MDScreen):
         print(self.audio_data)
 
 
-        #def framing(sig, fs=16000, win_len=0.025, win_hop=0.01):
+        #def framing(sig, fs=16000, win_len=0.025, win_hop=0.01): ###This is for a spectogram
         #def framing(sig, fs=15600, win_len=0.025, win_hop=0.01):
         #def framing(sig, fs=15600, win_len=1, win_hop=0.975):
         #def framing(sig, fs=15600, win_len=1, win_hop=0.01):  ####runs forever
@@ -1296,8 +1303,10 @@ class RecordForm(MDScreen):
         print("waveform.shape")
         print(self.waveform.shape) 
  
-        self.start_inference()
- 
+        try:
+            self.start_inference()
+        except:
+            print("self.start_inference() failed")
 
 
 
@@ -1336,10 +1345,14 @@ class RecordForm(MDScreen):
             print("data in enumerate")
             print(data)
             #waveform = np.reshape(waveform, (1, 15600))
-            inference_results = self.perform_inference(self.waveform_input_index,data)
-            results_array.append(inference_results)
-            print("results in enumerate at inference")
-            print(results_array)
+            try:
+                inference_results = self.perform_inference(self.waveform_input_index,data)
+                results_array.append(inference_results)
+                print("results in enumerate at inference")
+                print(results_array)
+            except:
+                print("self.perform_inference(self.waveform_input_index,data) failed")    
+
   
   
 
@@ -1517,7 +1530,8 @@ class RecordForm(MDScreen):
         #scores = interpreter.get_tensor(index_to_label)
         #scores = interpreter.get_tensor(test_data)
         #Below is the correct one to use for the bird model
-        self.scores = self.interpreter_audio.get_tensor(self.scores_output_index1)
+        #self.scores = self.interpreter_audio.get_tensor(self.scores_output_index1)
+        self.scores, self.embeddings, self.spectrogram = self.interpreter_audio.get_tensor(self.scores_output_index1)
     
         top_class_index = self.scores.argmax()
         print("top_class_index")
