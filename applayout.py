@@ -1211,6 +1211,28 @@ class RecordForm(MDScreen):
 
         print("audio before tf.int16.max")
         print(self.audio_data)
+        
+        
+        
+        
+        
+        Fs = 8000
+        n_fft = 256
+        frequency1 = np.arange(0, 1 + n_fft / 2) * Fs / n_fft
+        print("frequency1")
+        print(frequency1)
+        
+        
+        #signal2 = np.array([-2, 8, 6, 4, 1, 0, 3, 5], dtype=float)
+        #signal2 = self.audio_data    might have to do to float
+        signal2 = self.audio_data
+        fourier = np.fft.fft(signal2)
+        n = signal2.size
+        timestep = 0.1
+        freq2 = np.fft.fftfreq(n, d=timestep)
+        print("frequency2")
+        print(freq2)       
+        
 
 
         #tf.int16.max prints out as 32767 so just use this instead
