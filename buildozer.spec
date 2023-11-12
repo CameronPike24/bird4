@@ -40,7 +40,7 @@ version = 0.1
 # comma separated e.g. requirements = sqlite3,kivy
 #requirements = python3,kivy,camera4kivy,gestures4kivy,numpy,tflite-runtime,kivymd,pandas,autopoint,gettext
 #requirements = python3,kivy,camera4kivy,gestures4kivy,numpy,tflite-runtime,kivymd,requests,urllib3,chardet,idna
-requirements = python3==3.9.12,kivy,camera4kivy,gestures4kivy,numpy,tflite-runtime,kivymd,requests,urllib3,chardet,idna,hostpython3==3.9.12,kivy_garden.graph,audiostream,librosa,kivy_garden.lazyloader
+requirements = python3==3.9.12,kivy,camera4kivy,gestures4kivy,numpy,tflite-runtime,kivymd,requests,urllib3,chardet,idna,hostpython3==3.9.12,kivy_garden.graph,audiostream,librosa,kivy-garden.lazyloader
 
 
 # (str) Custom source folders for requirements
