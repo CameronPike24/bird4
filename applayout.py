@@ -12,8 +12,8 @@ from kivymd.uix.card import MDCard
 from kivy.clock import Clock
 
 import librosa
-
-
+from kivy_garden.lazyloader import LazyLoader
+from scipy.signal import stft
 
 from kivy.uix.anchorlayout import AnchorLayout
 
