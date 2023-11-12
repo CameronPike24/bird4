@@ -11,11 +11,11 @@ from kivymd.uix.button import MDRaisedButton,MDFlatButton, MDFillRoundFlatIconBu
 from kivymd.uix.card import MDCard
 from kivy.clock import Clock
 
-import librosa
+#import librosa
 #from kivy_garden.lazyloader import LazyLoader
-from kivy.garden.lazyloader import LazyLoader
+#from kivy.garden.lazyloader import LazyLoader
 #from scipy.signal import stft
-
+from ssqueezepy import Wavelet, cwt, icwt
 from kivy.uix.anchorlayout import AnchorLayout
 
 from kivy.uix.popup import Popup
@@ -1236,43 +1236,17 @@ class RecordForm(MDScreen):
         '''
         
         
-        # Load the example clip
-        y, sr = librosa.load(librosa.ex('nutcracker'))
 
-        # Set the hop length; at 22050 Hz, 512 samples ~= 23ms
-        hop_length = 512
 
-        # Separate harmonics and percussives into two waveforms
-        y_harmonic, y_percussive = librosa.effects.hpss(y)
 
-        # Beat track on the percussive signal
-        tempo, beat_frames = librosa.beat.beat_track(y=y_percussive,
-                                             sr=sr)
+        np.random.seed(0)
+        x = np.random.randn(2048)
+        wavelet = Wavelet('morlet')
 
-        # Compute MFCC features from the raw signal
-        mfcc = librosa.feature.mfcc(y=y, sr=sr, hop_length=hop_length, n_mfcc=13)
+        Wx, scales = cwt(x, wavelet)
+        xrec = icwt(Wx, wavelet, scales)
 
-        # And the first-order differences (delta features)
-        mfcc_delta = librosa.feature.delta(mfcc)
-
-        #  Stack and synchronize between beat events
-        # This time, we'll use the mean value (default) instead of median
-        beat_mfcc_delta = librosa.util.sync(np.vstack([mfcc, mfcc_delta]),
-                                    beat_frames)
-
-        # Compute chroma features from the harmonic signal
-        chromagram = librosa.feature.chroma_cqt(y=y_harmonic,
-                                        sr=sr)
-
-        # Aggregate chroma features between beat events
-        # We'll use the median value of each feature between beat frames
-        beat_chroma = librosa.util.sync(chromagram,beat_frames,aggregate=np.median)
-
-        # Finally, stack all beat-synchronous features together
-        beat_features = np.vstack([beat_chroma, beat_mfcc_delta])     
-        print("beat")
-        print(beat_features)   
-        
+        print("Mean Squared Error: %.3g" % np.mean(np.abs(x - xrec)**2))
         
         
         
