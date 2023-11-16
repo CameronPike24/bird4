@@ -15,7 +15,7 @@ from kivy.clock import Clock
 #from kivy_garden.lazyloader import LazyLoader
 #from kivy.garden.lazyloader import LazyLoader
 #from scipy.signal import stft
-from ssqueezepy import Wavelet, cwt, icwt
+#from ssqueezepy import Wavelet, cwt, icwt
 from kivy.uix.anchorlayout import AnchorLayout
 
 from kivy.uix.popup import Popup
@@ -1233,12 +1233,12 @@ class RecordForm(MDScreen):
         freq2 = np.fft.fftfreq(n, d=timestep)
         print("frequency2")
         print(freq2)       
-        '''
         
         
+        
 
 
-
+   
         np.random.seed(0)
         x = np.random.randn(2048)
         wavelet = Wavelet('morlet')
@@ -1247,7 +1247,7 @@ class RecordForm(MDScreen):
         xrec = icwt(Wx, wavelet, scales)
 
         print("Mean Squared Error: %.3g" % np.mean(np.abs(x - xrec)**2))
-        
+        '''
         
         
         
