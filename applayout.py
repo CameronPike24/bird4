@@ -550,6 +550,10 @@ class RecordForm(MDScreen):
         self.amplitude_high = 0
         self.display_audio_detection_button_active = False
         
+        #Load pickle files containing hashes
+        self.database = pickle.load(open('database.pickle', 'rb'))
+        self.song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
+        
         
     
         
@@ -1089,19 +1093,24 @@ class RecordForm(MDScreen):
             print('audio_input wave open')
             print(audio_input) 
          
-        #Create constellaton map of frequencies to time    
+        #Create constellaton map of frequencies to time 
+           
         constellation = create_constellation(audio_input, Fs)
+        print("constellation type")
+        print(type(constellation))
         #Create hashes of constellation
         hashes = create_hashes(constellation, None)  
-        
-        #Load pickle files containing hashes
-        self.database = pickle.load(open('database.pickle', 'rb'))
-        song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
+        print("hashes type")
+        print(type(hashes))        
+
         
         #Get the scores for the songs matching the hashes
         scores = self.score_songs(hashes)
+        print("scores type")
+        print(type(scores))          
+        
         for song_index, score in scores:
-            print(f"{song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
+            print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
         
         
         
