@@ -996,7 +996,7 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         
         
-    def score_songs(hashes):
+    def score_songs(self,hashes):
         matches_per_song = {}
         for hash, (sample_time, _) in hashes.items():
             if hash in database:
@@ -1099,7 +1099,7 @@ class RecordForm(MDScreen):
         song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
         
         #Get the scores for the songs matching the hashes
-        scores = score_songs(hashes)
+        scores = self.score_songs(hashes)
         for song_index, score in scores:
             print(f"{song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
         
