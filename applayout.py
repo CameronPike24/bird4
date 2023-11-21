@@ -999,8 +999,8 @@ class RecordForm(MDScreen):
     def score_songs(self,hashes):
         matches_per_song = {}
         for hash, (sample_time, _) in hashes.items():
-            if hash in database:
-                matching_occurences = database[hash]
+            if hash in self.database:
+                matching_occurences = self.database[hash]
                 for source_time, song_index in matching_occurences:
                     if song_index not in matches_per_song:
                         matches_per_song[song_index] = []
@@ -1095,7 +1095,7 @@ class RecordForm(MDScreen):
         hashes = create_hashes(constellation, None)  
         
         #Load pickle files containing hashes
-        database = pickle.load(open('database.pickle', 'rb'))
+        self.database = pickle.load(open('database.pickle', 'rb'))
         song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
         
         #Get the scores for the songs matching the hashes
