@@ -42,6 +42,9 @@ from collections import deque
 import time
 #import threading
 import csv
+import pickle
+from create_constellations import create_constellation
+from create_hashes import create_hashes
 
 
 
@@ -993,7 +996,38 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         
         
+    def score_songs(hashes):
+        matches_per_song = {}
+        for hash, (sample_time, _) in hashes.items():
+            if hash in database:
+                matching_occurences = database[hash]
+                for source_time, song_index in matching_occurences:
+                    if song_index not in matches_per_song:
+                        matches_per_song[song_index] = []
+                    matches_per_song[song_index].append((hash, sample_time, source_time))
+            
+
+    
+        scores = {}
+        for song_index, matches in matches_per_song.items():
+            song_scores_by_offset = {}
+            for hash, sample_time, source_time in matches:
+                delta = source_time - sample_time
+                if delta not in song_scores_by_offset:
+                    song_scores_by_offset[delta] = 0
+                song_scores_by_offset[delta] += 1
+
+            max = (0, 0)
+            for offset, score in song_scores_by_offset.items():
+                if score > max[1]:
+                    max = (offset, score)
         
+            scores[song_index] = max
+
+        # Sort the scores for the user
+        scores = list(sorted(scores.items(), key=lambda x: x[1][1], reverse=True)) 
+    
+        return scores        
              
                 
  
@@ -1046,6 +1080,31 @@ class RecordForm(MDScreen):
         #No need to play the file
         #self.play()                    
         self.audio_path  = "rec_test1.wav"   
+        
+        #We need to use the saved audio file that has a 44100 sample rate for the STFT solution
+        # Load a wave file using the wave module
+        with wave.open('rec_test1.wav', 'rb') as wave_file:
+            Fs = wave_file.getframerate()
+            audio_input = np.frombuffer(wave_file.readframes(wave_file.getnframes()), dtype=np.int16)
+            print('audio_input wave open')
+            print(audio_input) 
+         
+        #Create constellaton map of frequencies to time    
+        constellation = create_constellation(audio_input, Fs)
+        #Create hashes of constellation
+        hashes = create_hashes(constellation, None)  
+        
+        #Load pickle files containing hashes
+        database = pickle.load(open('database.pickle', 'rb'))
+        song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
+        
+        #Get the scores for the songs matching the hashes
+        scores = score_songs(hashes)
+        for song_index, score in scores:
+            print(f"{song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
+        
+        
+        
              
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
         self.audio_path_out  = "rec_test2.wav"
