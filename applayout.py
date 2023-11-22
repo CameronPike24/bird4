@@ -40,7 +40,7 @@ import audioop
 import sys
 from collections import deque
 import time
-#import threading
+import threading
 import csv
 import pickle
 from create_constellations import create_constellation
@@ -1031,8 +1031,50 @@ class RecordForm(MDScreen):
         # Sort the scores for the user
         scores = list(sorted(scores.items(), key=lambda x: x[1][1], reverse=True)) 
     
-        return scores        
+        return scores    
+        
+        
+            
              
+
+    def startSTFT(self, dt):
+        #We need to use the saved audio file that has a 44100 sample rate for the STFT solution
+        # Load a wave file using the wave module
+        #with wave.open('rec_test1.wav', 'rb') as wave_file:
+        with wave.open(self.audio_path, 'rb') as wave_file:
+            Fs = wave_file.getframerate()
+            audio_input = np.frombuffer(wave_file.readframes(wave_file.getnframes()), dtype=np.int16)
+            #print('audio_input wave open')
+            #print(audio_input) 
+         
+        #Create constellaton map of frequencies to time 
+           
+        constellation = create_constellation(audio_input, Fs)
+        #print("constellation type")
+        #print(type(constellation))
+        #Create hashes of constellation
+        hashes = create_hashes(constellation, None)  
+        #print("hashes type")
+        #print(type(hashes))        
+
+        
+        #Get the scores for the songs matching the hashes
+        scores = self.score_songs(hashes)
+        #print("scores type")
+        #print(type(scores))          
+        
+        for song_index, score in scores:
+            print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
+
+
+
+
+
+
+
+
+
+
                 
  
     def stop(self,dt):
@@ -1085,33 +1127,10 @@ class RecordForm(MDScreen):
         #self.play()                    
         self.audio_path  = "rec_test1.wav"   
         
-        #We need to use the saved audio file that has a 44100 sample rate for the STFT solution
-        # Load a wave file using the wave module
-        #with wave.open('rec_test1.wav', 'rb') as wave_file:
-        with wave.open(self.audio_path, 'rb') as wave_file:
-            Fs = wave_file.getframerate()
-            audio_input = np.frombuffer(wave_file.readframes(wave_file.getnframes()), dtype=np.int16)
-            #print('audio_input wave open')
-            #print(audio_input) 
-         
-        #Create constellaton map of frequencies to time 
-           
-        constellation = create_constellation(audio_input, Fs)
-        #print("constellation type")
-        #print(type(constellation))
-        #Create hashes of constellation
-        hashes = create_hashes(constellation, None)  
-        #print("hashes type")
-        #print(type(hashes))        
-
-        
-        #Get the scores for the songs matching the hashes
-        scores = self.score_songs(hashes)
-        #print("scores type")
-        #print(type(scores))          
-        
-        for song_index, score in scores:
-            print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
+        try:
+            Clock.schedule_once(self.startSTFT)
+        except:
+            print("could not do stft")
         
         
         '''
