@@ -98,7 +98,7 @@ def create_constellation(audio, Fs):
 
     song_input = np.pad(audio, (0, amount_to_pad))
     
-    print("window_length_samples scipy")
+    print("window_length_samples")
     print(window_length_samples)
  
 
@@ -131,13 +131,15 @@ def create_constellation(audio, Fs):
     stft_matrix, freq_bins, time_frames = stft_numpy(song_input, Fs, nperseg=window_length_samples, noverlap=window_length_samples // 2)
     #new_noverlap = round(window_length_samples // 1.91)
     #stft_matrix, freq_bins, time_frames = stft_numpy(song_input, Fs, nperseg=window_length_samples, noverlap=new_noverlap)
-    print("NumPy - Frequency bins:", freq_bins)
-    print("NumPy - Time frames:", time_frames)
+    
+    
+    #print("NumPy - Frequency bins:", freq_bins)
+    #print("NumPy - Time frames:", time_frames)
     
 
     
     
-    
+    '''
     print("song_input numpy")
     print(song_input)
     print('frequencies numpy')
@@ -146,7 +148,7 @@ def create_constellation(audio, Fs):
     print(time_frames)
     print('stft numpy')
     print(stft_matrix)
-
+    '''
 
 
     
@@ -170,7 +172,7 @@ def create_constellation(audio, Fs):
         
         # Print the size of constellation_map and its content
         print("Constellation map size:", len(constellation_map))
-        print("Constellation map content:", constellation_map)
+        #print("Constellation map content:", constellation_map)
         
         # Ensure the constellation_map is not empty before returning
     '''    

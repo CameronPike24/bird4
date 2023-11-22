@@ -1087,33 +1087,34 @@ class RecordForm(MDScreen):
         
         #We need to use the saved audio file that has a 44100 sample rate for the STFT solution
         # Load a wave file using the wave module
-        with wave.open('rec_test1.wav', 'rb') as wave_file:
+        #with wave.open('rec_test1.wav', 'rb') as wave_file:
+        with wave.open(self.audio_path, 'rb') as wave_file:
             Fs = wave_file.getframerate()
             audio_input = np.frombuffer(wave_file.readframes(wave_file.getnframes()), dtype=np.int16)
-            print('audio_input wave open')
-            print(audio_input) 
+            #print('audio_input wave open')
+            #print(audio_input) 
          
         #Create constellaton map of frequencies to time 
            
         constellation = create_constellation(audio_input, Fs)
-        print("constellation type")
-        print(type(constellation))
+        #print("constellation type")
+        #print(type(constellation))
         #Create hashes of constellation
         hashes = create_hashes(constellation, None)  
-        print("hashes type")
-        print(type(hashes))        
+        #print("hashes type")
+        #print(type(hashes))        
 
         
         #Get the scores for the songs matching the hashes
         scores = self.score_songs(hashes)
-        print("scores type")
-        print(type(scores))          
+        #print("scores type")
+        #print(type(scores))          
         
         for song_index, score in scores:
             print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
         
         
-        
+        '''
              
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
         self.audio_path_out  = "rec_test2.wav"
@@ -1139,7 +1140,7 @@ class RecordForm(MDScreen):
                 print("self.prepare_audio_frames() failed")
         else:
             print("Could not downsample")          
-        
+        '''
 
 
     '''        
