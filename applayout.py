@@ -863,8 +863,9 @@ class RecordForm(MDScreen):
            
         
         try:
-            #call plot graph
-            self.get_value(self.queue_frames)                
+            #call plot graph   
+            Clock.schedule_once(self.get_value)         
+            #self.get_value(self.queue_frames)                
 
         except:           
 
@@ -924,7 +925,8 @@ class RecordForm(MDScreen):
         
     #def get_value(self, dt):
     #def get_value(self, array_values):
-    def get_value(self,concatenated_queue_frames):
+    #def get_value(self,concatenated_queue_frames):
+    def get_value(self, dt):
         # Do a call to __call__ in Recorder class
         
         
@@ -933,13 +935,16 @@ class RecordForm(MDScreen):
         #concatenated_queue_frames = REC()    
 
         print("concatenated_queue_frames")
-        print(concatenated_queue_frames)        
+        #print(concatenated_queue_frames) 
+        print(self.queue_frames)  
+             
         
      
         #NB j//5 not j/5 removes any remainder which results in a float
         #self.plot.points = [(i, j//20) for i, j in enumerate(concatenated_queue_frames)] 
         #self.plot.points = [(i, j//5) for i, j in enumerate(islice(array_values, 300))] 
-        self.plot.points = [(i, j) for i, j in enumerate(concatenated_queue_frames)] 
+        #self.plot.points = [(i, j) for i, j in enumerate(concatenated_queue_frames)] 
+        self.plot.points = [(i, j) for i, j in enumerate(self.queue_frames)] 
         
         print("self.plot.points")
         print(self.plot.points)
