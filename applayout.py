@@ -1045,8 +1045,8 @@ class RecordForm(MDScreen):
     def startSTFT(self, dt):
         #We need to use the saved audio file that has a 44100 sample rate for the STFT solution
         # Load a wave file using the wave module
-        #with wave.open('rec_test1.wav', 'rb') as wave_file:
-        with wave.open(self.audio_path, 'rb') as wave_file:
+        with wave.open('burchells-coucal.wav', 'rb') as wave_file:
+        #with wave.open(self.audio_path, 'rb') as wave_file:
             Fs = wave_file.getframerate()
             audio_input = np.frombuffer(wave_file.readframes(wave_file.getnframes()), dtype=np.int16)
             #print('audio_input wave open')
