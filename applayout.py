@@ -766,8 +766,8 @@ class RecordForm(MDScreen):
         #If amplitude is over 1000 then start recording - this is just for testing and will change
         ##############################################################
         #self.amplitude_high = 101
-        self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
-        
+        #self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
+        self.record_time = 6 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
         self.amplitude_high = max(self.decoded)
         
         #empty self.decoded
@@ -1122,6 +1122,18 @@ class RecordForm(MDScreen):
         print("contents of copy_sData")
         print(self.copy_sData)        
         
+        self.file_path = os.path.join(self.get_running_app().user_data_dir, "recorded_audio.wav")
+        print("self.file_path")
+        print(self.file_path)
+
+        # Save the recorded audio to a WAV file
+        with wave.open(self.file_path, 'w') as wf:
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(44100)
+            wf.writeframes(self.copy_sData.frames)
+
+
 
         
         
