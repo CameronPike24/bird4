@@ -10,6 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRaisedButton,MDFlatButton, MDFillRoundFlatIconButton
 from kivymd.uix.card import MDCard
 from kivy.clock import Clock
+#from kivy.app import App
 
 #import librosa
 #from kivy_garden.lazyloader import LazyLoader
@@ -1108,7 +1109,7 @@ class RecordForm(MDScreen):
         #Start creating the wave file
         wf = wave.open(PATH, 'wb')
         wf.setnchannels(self.mic.channels)
-        wf.setsampwidth(2)
+        wf.setsampwidth(2) #16 bit audio so 2 bytes of 8 bits each 
         wf.setframerate(self.mic.rate)
         wf.writeframes(b''.join(self.copy_sData))
         print("we at stop")
@@ -1122,7 +1123,9 @@ class RecordForm(MDScreen):
         print("contents of copy_sData")
         print(self.copy_sData)        
         
-        self.file_path = os.path.join(self.get_running_app().user_data_dir, "recorded_audio.wav")
+        #self.file_path = os.path.join(self.get_running_app().user_data_dir, "recorded_audio.wav")
+        self.file_path = os.path.join(App.get_running_app().user_data_dir, "recorded_audio.wav")
+   
         print("self.file_path")
         print(self.file_path)
 
