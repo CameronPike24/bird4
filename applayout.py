@@ -10,7 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRaisedButton,MDFlatButton, MDFillRoundFlatIconButton
 from kivymd.uix.card import MDCard
 from kivy.clock import Clock
-#from kivy.app import App
+from kivy.app import App
 
 #import librosa
 #from kivy_garden.lazyloader import LazyLoader
