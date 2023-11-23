@@ -21,6 +21,15 @@ def before_apk_build(toolchain):
         unprocessed_args.append('RECORD_AUDIO')
         info('Camerax Provider: Add android.permissions = RECORD_AUDIO')
         
+    if 'WRITE_EXTERNAL_STORAGE' not in unprocessed_args:
+        unprocessed_args.append('--permission')
+        unprocessed_args.append('WRITE_EXTERNAL_STORAGE')
+        info('Camerax Provider: Add android.permissions = WRITE_EXTERNAL_STORAGE')        
+        
+      
+        
+        
+        
     # Check the current versions of these camera Gradle dependencies here:
     #https://developer.android.com/jetpack/androidx/releases/camera#dependencies
     # and the other packages at https://mvnrepository.com/
