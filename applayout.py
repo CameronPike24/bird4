@@ -1134,7 +1134,8 @@ class RecordForm(MDScreen):
             wf.setnchannels(1)
             wf.setsampwidth(2)
             wf.setframerate(44100)
-            wf.writeframes(self.copy_sData.frames)
+            #wf.writeframes(self.copy_sData.frames)
+            wf.writeframes(b''.join(self.copy_sData))
 
 
 
