@@ -1107,14 +1107,16 @@ class RecordForm(MDScreen):
             destination_directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
             
             # Extract the string path from the Java object
-            destination_directory_path = destination_directory.getPath()
+            #destination_directory_path = destination_directory.getPath()
+            #destination_directory_path = str(destination_directory)
+            destination_directory_path = '//storage//emulated//0//'
             
             # Print for debugging
             print("Destination Directory:")
             print(destination_directory)
 
             # Create the destination directory if it doesn't exist
-            os.makedirs(destination_directory, exist_ok=True)
+            #os.makedirs(destination_directory, exist_ok=True)
 
             # Set the destination path within the directory
             dest_path = os.path.join(destination_directory, 'output.wav')
