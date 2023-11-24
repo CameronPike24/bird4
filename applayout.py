@@ -1083,6 +1083,12 @@ class RecordForm(MDScreen):
 
         # Save the audio data to a WAV file in the internal storage directory
         file_path = os.path.join(app_storage_dir, 'output.wav')
+        
+        print("file_path")
+        print(file_path)        
+        
+        
+        
         self.save_to_wave_file(self.copy_sData, file_path)
 
     def save_to_wave_file(self, audio_data, filename):
@@ -1137,7 +1143,7 @@ class RecordForm(MDScreen):
         print(self.copy_sData)    
         
         #Save file to android
-        self.save_audio(self)   
+        self.save_audio()   
         
         
         '''
