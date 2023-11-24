@@ -1105,6 +1105,11 @@ class RecordForm(MDScreen):
             from jnius import autoclass
             Environment = autoclass('android.os.Environment')
             destination_directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+            
+            
+            # Print for debugging
+            print("Destination Directory:")
+            print(destination_directory)
 
             # Create the destination directory if it doesn't exist
             os.makedirs(destination_directory, exist_ok=True)
