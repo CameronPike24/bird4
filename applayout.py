@@ -1097,21 +1097,26 @@ class RecordForm(MDScreen):
         self.save_to_wave_file(self.copy_sData, file_path)
         
  
-    def move_file_to_public_directory(self, source_path):
-        if platform == 'android':
-            from jnius import autoclass
-            Environment = autoclass('android.os.Environment')
-            Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_MUSIC)
 
-            dest_path = os.path.join(Environment.getExternalStorageDirectory(), 'output.wav')
-
-            # Copy the file
-            shutil.copy2(source_path, dest_path)
-
-            # Optionally, you can delete the original file
-            os.remove(source_path) 
  
+
+    def move_file_to_public_directory(self, source_path):
+    if platform == 'android':
+        from jnius import autoclass
+        Environment = autoclass('android.os.Environment')
+        dest_path = os.path.join(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), 'output.wav')
+
+        # Create the destination directory if it doesn't exist
+        os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+
+        # Copy the file
+        shutil.copy2(source_path, dest_path)
+
+        # Optionally, you can delete the original file
+        os.remove(source_path)
+
+
+
     
             
             
