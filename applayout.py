@@ -1088,13 +1088,6 @@ class RecordForm(MDScreen):
         print(file_path)         
         self.save_to_wave_file(self.copy_sData, file_path)
         
-        
-    '''
-    def save_to_wave_file(self, audio_data, filename):
-        with open(filename, 'wb') as wave_file:
-            wave_file.write(audio_data)
-            wave_file.writeframes(bytes(audio_data))
-    '''
     
             
             
@@ -1106,7 +1099,15 @@ class RecordForm(MDScreen):
             wave_file.setframerate(44100)  # Sample rate
 
             # Convert the list to bytes before writing to the WAV file
-            wave_file.writeframes(bytes(audio_data))
+            #wave_file.writeframes(bytes(audio_data))
+            #wave_file.writeframes(b''.join(self.copy_sData))
+            
+            # Ensure audio_data is a list of bytes before writing to the WAV file
+            if not all(isinstance(chunk, bytes) for chunk in audio_data):
+                raise TypeError("Audio data should be a list of bytes")
+
+            # Join the list of bytes and write to the WAV file
+            wave_file.writeframes(b''.join(audio_data))
             
             
 
