@@ -1085,15 +1085,30 @@ class RecordForm(MDScreen):
         file_path = os.path.join(app_storage_dir, 'output.wav')
         
         print("file_path")
-        print(file_path)        
-        
-        
-        
+        print(file_path)         
         self.save_to_wave_file(self.copy_sData, file_path)
-
+        
+        
+    '''
     def save_to_wave_file(self, audio_data, filename):
         with open(filename, 'wb') as wave_file:
             wave_file.write(audio_data)
+            wave_file.writeframes(bytes(audio_data))
+    '''
+    
+            
+            
+    def save_to_wave_file(self, audio_data, filename):
+        with wave.open(filename, 'wb') as wave_file:
+            # Set the WAV file parameters
+            wave_file.setnchannels(1)  # Mono audio
+            wave_file.setsampwidth(2)  # 16-bit audio
+            wave_file.setframerate(44100)  # Sample rate
+
+            # Convert the list to bytes before writing to the WAV file
+            wave_file.writeframes(bytes(audio_data))
+            
+            
 
 
 
