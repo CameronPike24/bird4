@@ -1074,7 +1074,20 @@ class RecordForm(MDScreen):
 
 
 
+    def save_audio(self):
+        # Get the audio data from the stream
+        #audio_data = self.stream.read(self.stream.samples)
 
+        # Get the path to the app's internal storage directory
+        app_storage_dir = App.get_running_app().user_data_dir
+
+        # Save the audio data to a WAV file in the internal storage directory
+        file_path = os.path.join(app_storage_dir, 'output.wav')
+        self.save_to_wave_file(self.copy_sData, file_path)
+
+    def save_to_wave_file(self, audio_data, filename):
+        with open(filename, 'wb') as wave_file:
+            wave_file.write(audio_data)
 
 
 
@@ -1121,8 +1134,13 @@ class RecordForm(MDScreen):
         print("contents of sData")
         print(self.sData)
         print("contents of copy_sData")
-        print(self.copy_sData)        
+        print(self.copy_sData)    
         
+        #Save file to android
+        self.save_audio(self)   
+        
+        
+        '''
         #self.file_path = os.path.join(self.get_running_app().user_data_dir, "recorded_audio.wav")
         self.file_path = os.path.join(App.get_running_app().user_data_dir, "recorded_audio.wav")
    
@@ -1136,7 +1154,7 @@ class RecordForm(MDScreen):
             wf.setframerate(44100)
             #wf.writeframes(self.copy_sData.frames)
             wf.writeframes(b''.join(self.copy_sData))
-
+        '''
 
 
         
