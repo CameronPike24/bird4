@@ -1089,7 +1089,7 @@ class RecordForm(MDScreen):
         
         # Move the file to a public directory
         if platform == 'android':
-            self.move_file_to_public_directory(file_path)        
+            self.move_file_to_public_directory(str(file_path))       
         
         
         
