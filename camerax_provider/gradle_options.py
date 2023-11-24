@@ -26,7 +26,10 @@ def before_apk_build(toolchain):
         unprocessed_args.append('WRITE_EXTERNAL_STORAGE')
         info('Camerax Provider: Add android.permissions = WRITE_EXTERNAL_STORAGE')        
         
-      
+    if 'MANAGE_EXTERNAL_STORAGE' not in unprocessed_args:
+        unprocessed_args.append('--permission')
+        unprocessed_args.append('MANAGE_EXTERNAL_STORAGE')
+        info('Camerax Provider: Add android.permissions = MANAGE_EXTERNAL_STORAGE')            
         
         
         
