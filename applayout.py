@@ -1106,6 +1106,8 @@ class RecordForm(MDScreen):
             Environment = autoclass('android.os.Environment')
             destination_directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
             
+            # Extract the string path from the Java object
+            destination_directory_path = destination_directory.getPath()
             
             # Print for debugging
             print("Destination Directory:")
