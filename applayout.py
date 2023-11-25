@@ -1084,42 +1084,40 @@ class RecordForm(MDScreen):
         # Save the audio data to a WAV file in the internal storage directory
         file_path = os.path.join(app_storage_dir, 'output.wav')
         
-        print("file_path")
-        print(file_path)  
+      
         
         # Move the file to a public directory
         if platform == 'android':
-            self.move_file_to_public_directory(str(file_path))       
+            self.move_file_to_dcim_directory(str(file_path))       
         
-        
+        # Print for debugging
+        print("Final File Path:")
+        print(file_path)
         
                
         self.save_to_wave_file(self.copy_sData, file_path)
         
  
 
+           
 
-
-    def move_file_to_public_directory(self, source_path):
+    def move_file_to_dcim_directory(self, source_path):
         if platform == 'android':
-            from jnius import autoclass
-            Environment = autoclass('android.os.Environment')
-            destination_directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-            
-            # Extract the string path from the Java object
-            #destination_directory_path = destination_directory.getPath()
-            #destination_directory_path = str(destination_directory)
-            destination_directory_path = '//storage//emulated//0//'
-            
+            # Get the path to the app's internal storage directory
+            internal_storage_directory = App.get_running_app().user_data_dir
+
+            # Specify the subdirectory within the DCIM directory
+            dcim_subdirectory = os.path.join(internal_storage_directory, 'DCIM', 'c4k_tflite_bird_4')
+
             # Print for debugging
-            print("Destination Directory:")
-            print(destination_directory)
+            print("DCIM Subdirectory:")
+            print(dcim_subdirectory)
 
             # Create the destination directory if it doesn't exist
-            #os.makedirs(destination_directory, exist_ok=True)
+            os.makedirs(dcim_subdirectory, exist_ok=True)
 
             # Set the destination path within the directory
-            dest_path = os.path.join(destination_directory, 'output.wav')
+            dest_path = os.path.join(dcim_subdirectory, 'output.wav')
 
             # Copy the file
             shutil.copy2(source_path, dest_path)
@@ -1127,8 +1125,20 @@ class RecordForm(MDScreen):
             # Optionally, you can delete the original file
             os.remove(source_path)
 
-
     
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             
     def save_to_wave_file(self, audio_data, filename):
