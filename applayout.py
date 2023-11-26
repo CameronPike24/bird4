@@ -21,7 +21,7 @@ from kivy.uix.anchorlayout import AnchorLayout
 
 from kivy.uix.popup import Popup
 
-
+import shutil
 
 from jnius import autoclass
 from audiostream import get_input
