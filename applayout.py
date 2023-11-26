@@ -1075,71 +1075,57 @@ class RecordForm(MDScreen):
 
 
     def save_audio(self):
-        # Get the audio data from the stream
-        #audio_data = self.stream.read(self.stream.samples)
-
-        # Get the path to the app's internal storage directory
-        app_storage_dir = App.get_running_app().user_data_dir
-
-        # Save the audio data to a WAV file in the internal storage directory
-        file_path = os.path.join(app_storage_dir, 'output.wav')
-        
-      
-        
-        # Move the file to a public directory
-        if platform == 'android':
-            self.move_file_to_dcim_directory(str(file_path))       
-        
-        # Print for debugging
-        print("Final File Path:")
-        print(file_path)
-        
-               
-        self.save_to_wave_file(self.copy_sData, file_path)
-        
- 
-
-           
-
-    def move_file_to_dcim_directory(self, source_path):
-        if platform == 'android':
+        try:
             # Get the path to the app's internal storage directory
-            internal_storage_directory = App.get_running_app().user_data_dir
+            app_storage_dir = App.get_running_app().user_data_dir
 
-            # Specify the subdirectory within the DCIM directory
-            dcim_subdirectory = os.path.join(internal_storage_directory, 'DCIM', 'c4k_tflite_bird_4')
+            # Save the audio data to a WAV file in the internal storage directory
+            file_path = os.path.join(app_storage_dir, 'output.wav')
+
+            # Move the file to a DCIM subdirectory
+            if platform == 'android':
+                self.move_file_to_dcim_directory(str(file_path))
 
             # Print for debugging
-            print("DCIM Subdirectory:")
-            print(dcim_subdirectory)
+            print("Final File Path:")
+            print(file_path)
 
-            # Create the destination directory if it doesn't exist
-            os.makedirs(dcim_subdirectory, exist_ok=True)
+            # Further processing or saving the audio data if needed
+            self.save_to_wave_file(self.copy_sData, file_path)
 
-            # Set the destination path within the directory
-            dest_path = os.path.join(dcim_subdirectory, 'output.wav')
+        except Exception as e:
+            print(f"Error in save_audio: {e}")
 
-            # Copy the file
-            shutil.copy2(source_path, dest_path)
+    def move_file_to_dcim_directory(self, source_path):
+        try:
+            if platform == 'android':
+                # Get the path to the app's internal storage directory
+                internal_storage_directory = App.get_running_app().user_data_dir
 
-            # Optionally, you can delete the original file
-            os.remove(source_path)
+                # Specify the subdirectory within the DCIM directory
+                dcim_subdirectory = os.path.join(internal_storage_directory, 'DCIM', 'c4k_tflite_bird_4')
 
-    
+                # Print for debugging
+                print("DCIM Subdirectory:")
+                print(dcim_subdirectory)
+
+                # Create the destination directory if it doesn't exist
+                os.makedirs(dcim_subdirectory, exist_ok=True)
+
+                # Set the destination path within the directory
+                dest_path = os.path.join(dcim_subdirectory, 'output.wav')
+
+                # Copy the file
+                shutil.copy2(source_path, dest_path)
+
+                # Optionally, you can delete the original file
+                os.remove(source_path)
+
+        except Exception as e:
+            print(f"Error in move_file_to_dcim_directory: {e}")
 
 
-
-
-
-
-
-
-
-
-
-
-
-            
+           
             
     def save_to_wave_file(self, audio_data, filename):
         with wave.open(filename, 'wb') as wave_file:
