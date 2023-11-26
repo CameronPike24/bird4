@@ -1095,6 +1095,8 @@ class RecordForm(MDScreen):
 
         except Exception as e:
             print(f"Error in save_audio: {e}")
+            
+            
 
     def move_file_to_dcim_directory(self, source_path):
         try:
@@ -1102,18 +1104,18 @@ class RecordForm(MDScreen):
                 # Get the path to the app's internal storage directory
                 internal_storage_directory = App.get_running_app().user_data_dir
 
-                # Specify the subdirectory within the DCIM directory
-                dcim_subdirectory = os.path.join(internal_storage_directory, 'DCIM', 'c4k_tflite_bird_4')
+                # Specify the DCIM directory
+                dcim_directory = os.path.join(internal_storage_directory, 'DCIM')
 
                 # Print for debugging
-                print("DCIM Subdirectory:")
-                print(dcim_subdirectory)
+                print("DCIM Directory:")
+                print(dcim_directory)
 
                 # Create the destination directory if it doesn't exist
-                os.makedirs(dcim_subdirectory, exist_ok=True)
+                os.makedirs(dcim_directory, exist_ok=True)
 
-                # Set the destination path within the directory
-                dest_path = os.path.join(dcim_subdirectory, 'output.wav')
+                # Set the destination path within the DCIM directory
+                dest_path = os.path.join(dcim_directory, 'output.wav')
 
                 # Copy the file
                 shutil.copy2(source_path, dest_path)
@@ -1123,6 +1125,7 @@ class RecordForm(MDScreen):
 
         except Exception as e:
             print(f"Error in move_file_to_dcim_directory: {e}")
+
 
 
            
