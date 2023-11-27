@@ -1105,11 +1105,14 @@ class RecordForm(MDScreen):
         try:
             if platform == 'android':
                 # Specify the DCIM directory
-                dcim_directory = '/storage/emulated/0/DCIM'
+                #dcim_directory = '/storage/emulated/0/DCIM'
+                dcim_directory = '/storage/emulated/0/Download'
 
                 # Print for debugging
                 print("DCIM Directory:")
                 print(dcim_directory)
+                
+                '''
                 
                 try:
                 
@@ -1118,15 +1121,27 @@ class RecordForm(MDScreen):
                     
                 except:
                     print('os.makedirs dcim') 
+                    
+                '''    
 
                 # Set the destination path within the DCIM directory
                 dest_path = os.path.join(dcim_directory, 'output.wav')
+                
+                
+                try:
+                
+                    # Copy the file
+                    shutil.copy2(source_path, dest_path)
+                    
+                except:
+                    print('could not copy')    
 
-                # Copy the file
-                shutil.copy2(source_path, dest_path)
-
-                # Optionally, you can delete the original file
-                os.remove(source_path)
+                
+                try:
+                    # Optionally, you can delete the original file
+                    os.remove(source_path)
+                except:
+                    print('could not remove')    
 
         except Exception as e:
             print(f"Error in move_file_to_dcim_directory: {e}")
