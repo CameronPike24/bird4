@@ -1110,9 +1110,14 @@ class RecordForm(MDScreen):
                 # Print for debugging
                 print("DCIM Directory:")
                 print(dcim_directory)
-
-                # Create the destination directory if it doesn't exist
-                os.makedirs(dcim_directory, exist_ok=True)
+                
+                try:
+                
+                    # Create the destination directory if it doesn't exist
+                    os.makedirs(dcim_directory, exist_ok=True)
+                    
+                except:
+                    print('os.makedirs dcim') 
 
                 # Set the destination path within the DCIM directory
                 dest_path = os.path.join(dcim_directory, 'output.wav')
