@@ -1081,6 +1081,10 @@ class RecordForm(MDScreen):
 
             # Save the audio data to a WAV file in the internal storage directory
             file_path = os.path.join(app_storage_dir, 'output.wav')
+            
+            
+            # Further processing or saving the audio data if needed
+            self.save_to_wave_file(self.copy_sData, file_path)
 
             # Move the file to a DCIM subdirectory
             if platform == 'android':
@@ -1090,8 +1094,7 @@ class RecordForm(MDScreen):
             print("Final File Path:")
             print(file_path)
 
-            # Further processing or saving the audio data if needed
-            self.save_to_wave_file(self.copy_sData, file_path)
+
 
         except Exception as e:
             print(f"Error in save_audio: {e}")
@@ -1101,11 +1104,8 @@ class RecordForm(MDScreen):
     def move_file_to_dcim_directory(self, source_path):
         try:
             if platform == 'android':
-                # Get the path to the app's internal storage directory
-                internal_storage_directory = App.get_running_app().user_data_dir
-
                 # Specify the DCIM directory
-                dcim_directory = os.path.join(internal_storage_directory, 'DCIM')
+                dcim_directory = '/storage/emulated/0/DCIM'
 
                 # Print for debugging
                 print("DCIM Directory:")
