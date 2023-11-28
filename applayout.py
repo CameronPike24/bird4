@@ -1149,13 +1149,13 @@ class RecordForm(MDScreen):
                 if isaudio == 'Yes':
                     
                     # Set the destination path within the DCIM directory  for the audio file              
-                    dest_path = os.path.join(dcim_directory, 'output' + self.file_counter +'.wav')
+                    dest_path = os.path.join(dcim_directory, 'output' + str(self.file_counter) +'.wav')
                     self.file_counter += 1
                     
                 else:
                     
                     # Set the destination path within the DCIM directory for the text file             
-                    dest_path = os.path.join(dcim_directory, 'outputtext' + self.file_counter +'.txt')
+                    dest_path = os.path.join(dcim_directory, 'outputtext' + str(self.file_counter) +'.txt')
                     self.file_counter += 1
                                     
                 
