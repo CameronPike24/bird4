@@ -554,6 +554,7 @@ class RecordForm(MDScreen):
         #Load pickle files containing hashes
         self.database = pickle.load(open('database.pickle', 'rb'))
         self.song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
+        self.file_counter = 0
         
         
     
@@ -1067,12 +1068,30 @@ class RecordForm(MDScreen):
         #Get the scores for the songs matching the hashes
         scores = self.score_songs(hashes)
         #print("scores type")
-        #print(type(scores))          
+        #print(type(scores))   
+        
+        # Get the path to the app's internal storage directory
+        app_storage_dir = App.get_running_app().user_data_dir
+
+        # Save the audio data to a WAV file in the internal storage directory
+        file_path_scores = os.path.join(app_storage_dir, 'scores.txt')
+                    
+        
+        
+               
+        myfile = open(file_path_scores, 'w')
         
         for song_index, score in scores:
             print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
-
-
+            myfile.write("%s\n" % score)
+            
+        isthisaudio = 'No'
+        self.move_file_to_dcim_directory(str(file_path_scores),isthisaudio)       
+        
+        myfile.close()
+        
+        
+        
 
     def save_audio(self):
         try:
@@ -1088,7 +1107,8 @@ class RecordForm(MDScreen):
 
             # Move the file to a DCIM subdirectory
             if platform == 'android':
-                self.move_file_to_dcim_directory(str(file_path))
+                isthisaudio = 'Yes'
+                self.move_file_to_dcim_directory(str(file_path),isthisaudio)
 
             # Print for debugging
             print("Final File Path:")
@@ -1101,7 +1121,7 @@ class RecordForm(MDScreen):
             
             
 
-    def move_file_to_dcim_directory(self, source_path):
+    def move_file_to_dcim_directory(self, source_path, isaudio):
         try:
             if platform == 'android':
                 # Specify the DCIM directory
@@ -1124,9 +1144,19 @@ class RecordForm(MDScreen):
                     
                 '''    
 
-                # Set the destination path within the DCIM directory
-                dest_path = os.path.join(dcim_directory, 'output.wav')
-                
+
+                if isaudio == 'Yes':
+                    
+                    # Set the destination path within the DCIM directory  for the audio file              
+                    dest_path = os.path.join(dcim_directory, 'output' + self.file_counter +'.wav')
+                    self.file_counter += 1
+                    
+                else:
+                    
+                    # Set the destination path within the DCIM directory for the text file             
+                    dest_path = os.path.join(dcim_directory, 'outputtext' + self.file_counter +'.txt')
+                    self.file_counter += 1
+                                    
                 
                 try:
                 
@@ -1136,12 +1166,14 @@ class RecordForm(MDScreen):
                 except:
                     print('could not copy')    
 
-                
+                '''
                 try:
                     # Optionally, you can delete the original file
                     os.remove(source_path)
                 except:
-                    print('could not remove')    
+                    print('could not remove')   
+                '''     
+                     
 
         except Exception as e:
             print(f"Error in move_file_to_dcim_directory: {e}")
@@ -1201,6 +1233,7 @@ class RecordForm(MDScreen):
       
         
         #Start creating the wave file
+        #PATH is the file rec_test1.wav
         wf = wave.open(PATH, 'wb')
         wf.setnchannels(self.mic.channels)
         wf.setsampwidth(2) #16 bit audio so 2 bytes of 8 bits each 
