@@ -1075,6 +1075,8 @@ class RecordForm(MDScreen):
 
         # Save the audio data to a WAV file in the internal storage directory
         file_path_scores = os.path.join(app_storage_dir, 'scores.txt')
+        print("file_path_scores")
+        print(file_path_scores)
                     
         
         
@@ -1135,6 +1137,11 @@ class RecordForm(MDScreen):
                 print("DCIM Directory:")
                 print(dcim_directory)
                 
+                print("source_path")
+                print(source_path)
+                print("isaudio")
+                print(isaudio)
+                
                 '''
                 
                 try:
@@ -1152,13 +1159,18 @@ class RecordForm(MDScreen):
                     
                     # Set the destination path within the DCIM directory  for the audio file              
                     dest_path = os.path.join(dcim_directory, 'output' + str(self.file_counter) +'.wav')
-                    self.file_counter += 1
+                    #self.file_counter += 1
+                    print("dest_path for wav file")
+                    print(dest_path)                    
+                    
                     
                 else:
                     
                     # Set the destination path within the DCIM directory for the text file             
                     dest_path = os.path.join(dcim_directory, 'outputtext' + str(self.file_counter) +'.txt')
-                    #self.file_counter += 1
+                    self.file_counter += 1
+                    print("dest_path for txt file")
+                    print(dest_path)
                                     
                 
                 try:
@@ -1169,13 +1181,13 @@ class RecordForm(MDScreen):
                 except:
                     print('could not copy')    
 
-                '''
+                
                 try:
                     # Optionally, you can delete the original file
                     os.remove(source_path)
                 except:
                     print('could not remove')   
-                '''     
+                    
                      
 
         except Exception as e:
