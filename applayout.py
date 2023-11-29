@@ -1083,7 +1083,9 @@ class RecordForm(MDScreen):
         
         for song_index, score in scores:
             print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
-            myfile.write(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}\n")
+            #myfile.write("{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}\n")
+            myfile.write(f"{self.song_index_lookup[song_index]}: Score of {score[1]} at {score[0]}\n")
+
             #myfile.write("%s\n" % score)
             
         isthisaudio = 'No'
@@ -1156,7 +1158,7 @@ class RecordForm(MDScreen):
                     
                     # Set the destination path within the DCIM directory for the text file             
                     dest_path = os.path.join(dcim_directory, 'outputtext' + str(self.file_counter) +'.txt')
-                    self.file_counter += 1
+                    #self.file_counter += 1
                                     
                 
                 try:
