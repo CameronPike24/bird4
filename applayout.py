@@ -1082,13 +1082,14 @@ class RecordForm(MDScreen):
         
                
         myfile = open(file_path_scores, 'w')
+        #with open(file_path_scores, 'w') as myfile
         
         for song_index, score in scores:
             print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
             #myfile.write("{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}\n")
-            myfile.write(f"{self.song_index_lookup[song_index]}: Score of {score[1]} at {score[0]}\n")
+            #myfile.write(f"{self.song_index_lookup[song_index]}: Score of {score[1]} at {score[0]}\n")
 
-            #myfile.write("%s\n" % score)
+            myfile.write('%d' % score[0] + '\n')
             
         isthisaudio = 'No'
         self.move_file_to_dcim_directory(str(file_path_scores),isthisaudio)       
