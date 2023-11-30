@@ -26,6 +26,7 @@ import shutil
 from jnius import autoclass
 from audiostream import get_input
 import wave
+import random
 #
 import os
 from android.permissions import request_permissions,Permission,check_permission
@@ -1081,20 +1082,22 @@ class RecordForm(MDScreen):
         
         
                
-        myfile = open(file_path_scores, 'w')
+        myfile = open(r'file_path_scores', 'w')
         #with open(file_path_scores, 'w') as myfile
         
         for song_index, score in scores:
             print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
             #myfile.write("{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}\n")
             #myfile.write(f"{self.song_index_lookup[song_index]}: Score of {score[1]} at {score[0]}\n")
-
+            print("score[0]")
+            print(score[0])
             myfile.write('%d' % score[0] + '\n')
             
-        isthisaudio = 'No'
+        myfile.close()
+        isthisaudio = 'No'        
         self.move_file_to_dcim_directory(str(file_path_scores),isthisaudio)       
         
-        myfile.close()
+        
         
         
         
@@ -1154,12 +1157,12 @@ class RecordForm(MDScreen):
                     print('os.makedirs dcim') 
                     
                 '''    
-
+                rand_no = (random.randrange(1,100))
 
                 if isaudio == 'Yes':
                     
                     # Set the destination path within the DCIM directory  for the audio file              
-                    dest_path = os.path.join(dcim_directory, 'output' + str(self.file_counter) +'.wav')
+                    dest_path = os.path.join(dcim_directory, 'output' + str(self.file_counter) + str(rand_no) +'.wav')
                     #self.file_counter += 1
                     print("dest_path for wav file")
                     print(dest_path)                    
@@ -1168,7 +1171,7 @@ class RecordForm(MDScreen):
                 else:
                     
                     # Set the destination path within the DCIM directory for the text file             
-                    dest_path = os.path.join(dcim_directory, 'outputtext' + str(self.file_counter) +'.txt')
+                    dest_path = os.path.join(dcim_directory, 'outputtext' + str(self.file_counter) + str(rand_no) +'.txt')
                     self.file_counter += 1
                     print("dest_path for txt file")
                     print(dest_path)
