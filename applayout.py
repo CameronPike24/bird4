@@ -1083,7 +1083,8 @@ class RecordForm(MDScreen):
         
         try:
                
-            myfile = open(r'file_path_scores', 'w')
+            #myfile = open(r'file_path_scores', 'w')
+            myfile = open(file_path_scores, 'w')
             #with open(file_path_scores, 'w') as myfile
         
             for song_index, score in scores:
@@ -1097,7 +1098,8 @@ class RecordForm(MDScreen):
             myfile.close()
             
             #Read the file to see if it worked
-            f = open(r'file_path_scores', 'r')
+            #f = open(r'file_path_scores', 'r')
+            f = open(file_path_scores, 'r')
             print("contents of text file local")
             print(f.read())
             f.close()
