@@ -1095,6 +1095,14 @@ class RecordForm(MDScreen):
                 myfile.write('%d' % score[0] + '\n')
             
             myfile.close()
+            
+            #Read the file to see if it worked
+            f = open(r'file_path_scores', 'r')
+            print("contents of text file local")
+            print(f.read())
+            f.close()
+            
+            
             isthisaudio = 'No'        
             self.move_file_to_dcim_directory(str(file_path_scores),isthisaudio)       
         
@@ -1184,15 +1192,20 @@ class RecordForm(MDScreen):
                     # Copy the file
                     shutil.copy2(source_path, dest_path)
                     
-                except:
-                    print('could not copy')    
+
+
+                except Exception as e:
+                    print(f"could not copy: {e}")
+
 
                 
                 try:
                     # Optionally, you can delete the original file
                     os.remove(source_path)
-                except:
-                    print('could not remove')   
+
+                    
+                except Exception as e:
+                    print(f"could not remove: {e}")                     
                     
                      
 
