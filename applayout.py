@@ -770,7 +770,7 @@ class RecordForm(MDScreen):
         ##############################################################
         #self.amplitude_high = 101
         #self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
-        self.record_time = 6 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
+        self.record_time = 10 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
         self.amplitude_high = max(self.decoded)
         
         #empty self.decoded
