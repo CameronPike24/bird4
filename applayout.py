@@ -1202,7 +1202,7 @@ class RecordForm(MDScreen):
                     print(f"could not copy: {e}")
 
 
-                
+                '''
                 try:
                     # Optionally, you can delete the original file
                     os.remove(source_path)
@@ -1210,7 +1210,7 @@ class RecordForm(MDScreen):
                     
                 except Exception as e:
                     print(f"could not remove: {e}")                     
-                    
+                '''    
                      
 
         except Exception as e:
@@ -1317,14 +1317,14 @@ class RecordForm(MDScreen):
         #No need to play the file
         #self.play()                    
         self.audio_path  = "rec_test1.wav"   
-        
+        '''
         try:
             Clock.schedule_once(self.startSTFT)
         except:
             print("could not do stft")
-        
-        
         '''
+        
+        
              
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
         self.audio_path_out  = "rec_test2.wav"
@@ -1344,13 +1344,27 @@ class RecordForm(MDScreen):
             g = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
             print("downsampling completed at this time")
             print(g) 
+            #Move file to android storage
+            # Get the path to the app's internal storage directory
+            app_storage_dir = App.get_running_app().user_data_dir
+
+            # Save the audio data to a WAV file in the internal storage directory
+            file_path = os.path.join(app_storage_dir, 'rec_test2.wav')
+            
+            isthisaudio = 'Yes'
+            
+            self.move_file_to_dcim_directory(str(file_path),isthisaudio)
+            
+
+            
+            
             try:                 
                 self.prepare_audio_frames()
             except:
                 print("self.prepare_audio_frames() failed")
         else:
             print("Could not downsample")          
-        '''
+        
 
 
     '''        
