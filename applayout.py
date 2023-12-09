@@ -1353,7 +1353,8 @@ class RecordForm(MDScreen):
             
             isthisaudio = 'Yes'
             
-            self.move_file_to_dcim_directory(str(file_path),isthisaudio)
+            #self.move_file_to_dcim_directory(str(file_path),isthisaudio)
+            self.move_file_to_dcim_directory(file_path,isthisaudio)
             
 
             
