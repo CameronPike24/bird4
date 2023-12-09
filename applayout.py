@@ -1289,7 +1289,7 @@ class RecordForm(MDScreen):
         print(self.copy_sData)    
         
         #Save file to android
-        self.save_audio()   
+        #self.save_audio()   
         
         
         '''
