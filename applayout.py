@@ -1769,7 +1769,7 @@ class RecordForm(MDScreen):
         ###########################################################
         #Only display the button if the inference value is high ie a good match in the model
         ##########################################################
-        if(self.highest_inference_value > 0.58):              
+        if(self.highest_inference_value > 0.40):              
         
             self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
