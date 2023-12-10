@@ -1327,7 +1327,7 @@ class RecordForm(MDScreen):
         
              
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
-        self.audio_path_out  = "rec_test2.wav"
+        self.audio_path_out  = 'rec_test2.wav'
         self.audio_inrate = 44100
         self.audio_outrate = 16000
         self.audio_inchannels = 1
@@ -1354,7 +1354,7 @@ class RecordForm(MDScreen):
             isthisaudio = 'Yes'
             
             #self.move_file_to_dcim_directory(str(file_path),isthisaudio)
-            self.move_file_to_dcim_directory(file_path,isthisaudio)
+            self.move_file_to_dcim_directory(self.audio_path_out,isthisaudio)
             
 
             
