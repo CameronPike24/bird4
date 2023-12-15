@@ -10,7 +10,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDRaisedButton,MDFlatButton, MDFillRoundFlatIconButton
 from kivymd.uix.card import MDCard
 from kivy.clock import Clock
-from kivy.app import App
 
 #import librosa
 #from kivy_garden.lazyloader import LazyLoader
@@ -21,12 +20,11 @@ from kivy.uix.anchorlayout import AnchorLayout
 
 from kivy.uix.popup import Popup
 
-import shutil
+
 
 from jnius import autoclass
 from audiostream import get_input
 import wave
-import random
 #
 import os
 from android.permissions import request_permissions,Permission,check_permission
@@ -42,11 +40,8 @@ import audioop
 import sys
 from collections import deque
 import time
-import threading
+#import threading
 import csv
-import pickle
-from create_constellations import create_constellation
-from create_hashes import create_hashes
 
 
 
@@ -552,11 +547,6 @@ class RecordForm(MDScreen):
         self.amplitude_high = 0
         self.display_audio_detection_button_active = False
         
-        #Load pickle files containing hashes
-        self.database = pickle.load(open('database.pickle', 'rb'))
-        self.song_index_lookup = pickle.load(open("song_index.pickle", "rb"))   
-        self.file_counter = 0
-        
         
     
         
@@ -769,8 +759,8 @@ class RecordForm(MDScreen):
         #If amplitude is over 1000 then start recording - this is just for testing and will change
         ##############################################################
         #self.amplitude_high = 101
-        #self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
-        self.record_time = 10 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
+        self.record_time = 2 # We are filling sData with audio and need to stop in 2 seconds time to create the wave file
+        
         self.amplitude_high = max(self.decoded)
         
         #empty self.decoded
@@ -866,9 +856,8 @@ class RecordForm(MDScreen):
            
         
         try:
-            #call plot graph   
-            Clock.schedule_once(self.get_value)         
-            #self.get_value(self.queue_frames)                
+            #call plot graph
+            self.get_value(self.queue_frames)                
 
         except:           
 
@@ -928,8 +917,7 @@ class RecordForm(MDScreen):
         
     #def get_value(self, dt):
     #def get_value(self, array_values):
-    #def get_value(self,concatenated_queue_frames):
-    def get_value(self, dt):
+    def get_value(self,concatenated_queue_frames):
         # Do a call to __call__ in Recorder class
         
         
@@ -938,16 +926,13 @@ class RecordForm(MDScreen):
         #concatenated_queue_frames = REC()    
 
         print("concatenated_queue_frames")
-        #print(concatenated_queue_frames) 
-        print(self.queue_frames)  
-             
+        print(concatenated_queue_frames)        
         
      
         #NB j//5 not j/5 removes any remainder which results in a float
         #self.plot.points = [(i, j//20) for i, j in enumerate(concatenated_queue_frames)] 
         #self.plot.points = [(i, j//5) for i, j in enumerate(islice(array_values, 300))] 
-        #self.plot.points = [(i, j) for i, j in enumerate(concatenated_queue_frames)] 
-        self.plot.points = [(i, j) for i, j in enumerate(self.queue_frames)] 
+        self.plot.points = [(i, j) for i, j in enumerate(concatenated_queue_frames)] 
         
         print("self.plot.points")
         print(self.plot.points)
@@ -1008,243 +993,8 @@ class RecordForm(MDScreen):
         self.decoded_copy = []
         
         
-    def score_songs(self,hashes):
-        matches_per_song = {}
-        for hash, (sample_time, _) in hashes.items():
-            if hash in self.database:
-                matching_occurences = self.database[hash]
-                for source_time, song_index in matching_occurences:
-                    if song_index not in matches_per_song:
-                        matches_per_song[song_index] = []
-                    matches_per_song[song_index].append((hash, sample_time, source_time))
-            
-
-    
-        scores = {}
-        for song_index, matches in matches_per_song.items():
-            song_scores_by_offset = {}
-            for hash, sample_time, source_time in matches:
-                delta = source_time - sample_time
-                if delta not in song_scores_by_offset:
-                    song_scores_by_offset[delta] = 0
-                song_scores_by_offset[delta] += 1
-
-            max = (0, 0)
-            for offset, score in song_scores_by_offset.items():
-                if score > max[1]:
-                    max = (offset, score)
         
-            scores[song_index] = max
-
-        # Sort the scores for the user
-        scores = list(sorted(scores.items(), key=lambda x: x[1][1], reverse=True)) 
-    
-        return scores    
-        
-        
-            
              
-
-    def startSTFT(self, dt):
-        #We need to use the saved audio file that has a 44100 sample rate for the STFT solution
-        # Load a wave file using the wave module
-        #with wave.open('burchells-coucal.wav', 'rb') as wave_file:
-        with wave.open(self.audio_path, 'rb') as wave_file:
-            Fs = wave_file.getframerate()
-            audio_input = np.frombuffer(wave_file.readframes(wave_file.getnframes()), dtype=np.int16)
-            #print('audio_input wave open')
-            #print(audio_input) 
-         
-        #Create constellaton map of frequencies to time 
-           
-        constellation = create_constellation(audio_input, Fs)
-        #print("constellation type")
-        #print(type(constellation))
-        #Create hashes of constellation
-        hashes = create_hashes(constellation, None)  
-        #print("hashes type")
-        #print(type(hashes))        
-
-        
-        #Get the scores for the songs matching the hashes
-        scores = self.score_songs(hashes)
-        #print("scores type")
-        #print(type(scores))   
-        
-        # Get the path to the app's internal storage directory
-        app_storage_dir = App.get_running_app().user_data_dir
-
-        # Save the audio data to a WAV file in the internal storage directory
-        file_path_scores = os.path.join(app_storage_dir, 'scores.txt')
-        print("file_path_scores")
-        print(file_path_scores)
-                    
-        
-        
-        try:
-               
-            #myfile = open(r'file_path_scores', 'w')
-            myfile = open(file_path_scores, 'w')
-            #with open(file_path_scores, 'w') as myfile
-        
-            for song_index, score in scores:
-                print(f"{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}")
-                #myfile.write("{self.song_index_lookup[song_index]=}: Score of {score[1]} at {score[0]}\n")
-                myfile.write(f"{self.song_index_lookup[song_index]}: Score of {score[1]} at {score[0]}\n")
-                #print("score[0]")
-                #print(score[0])
-                #myfile.write('%d' % score[0] + '\n')
-            
-            myfile.close()
-            
-            
-            '''
-            #Read the file to see if it worked
-            #f = open(r'file_path_scores', 'r')
-            f = open(file_path_scores, 'r')
-            print("contents of text file local")
-            print(f.read())
-            f.close()
-            '''
-            
-            isthisaudio = 'No'        
-            self.move_file_to_dcim_directory(str(file_path_scores),isthisaudio)       
-        
-        except Exception as e:
-            print(f"Error in writing text file: {e}")
-        
-        
-        
-
-    def save_audio(self):
-        try:
-            # Get the path to the app's internal storage directory
-            app_storage_dir = App.get_running_app().user_data_dir
-
-            # Save the audio data to a WAV file in the internal storage directory
-            file_path = os.path.join(app_storage_dir, 'output.wav')
-            
-            
-            # Further processing or saving the audio data if needed
-            self.save_to_wave_file(self.copy_sData, file_path)
-
-            # Move the file to a DCIM subdirectory
-            if platform == 'android':
-                isthisaudio = 'Yes'
-                self.move_file_to_dcim_directory(str(file_path),isthisaudio)
-
-            # Print for debugging
-            print("Final File Path:")
-            print(file_path)
-
-
-
-        except Exception as e:
-            print(f"Error in save_audio: {e}")
-            
-            
-
-    def move_file_to_dcim_directory(self, source_path, isaudio):
-        try:
-            if platform == 'android':
-                # Specify the DCIM directory
-                #dcim_directory = '/storage/emulated/0/DCIM'
-                dcim_directory = '/storage/emulated/0/Download'
-
-                # Print for debugging
-                print("DCIM Directory:")
-                print(dcim_directory)
-                
-                print("source_path")
-                print(source_path)
-                print("isaudio")
-                print(isaudio)
-                
-                '''
-                
-                try:
-                
-                    # Create the destination directory if it doesn't exist
-                    os.makedirs(dcim_directory, exist_ok=True)
-                    
-                except:
-                    print('os.makedirs dcim') 
-                    
-                '''    
-                rand_no = (random.randrange(1,100))
-
-                if isaudio == 'Yes':
-                    
-                    # Set the destination path within the DCIM directory  for the audio file              
-                    dest_path = os.path.join(dcim_directory, 'output' + str(self.file_counter) + str(rand_no) +'.wav')
-                    #self.file_counter += 1
-                    print("dest_path for wav file")
-                    print(dest_path)                    
-                    
-                    
-                else:
-                    
-                    # Set the destination path within the DCIM directory for the text file             
-                    dest_path = os.path.join(dcim_directory, 'outputtext' + str(self.file_counter) + str(rand_no) +'.txt')
-                    self.file_counter += 1
-                    print("dest_path for txt file")
-                    print(dest_path)
-                                    
-                
-                try:
-                
-                    # Copy the file
-                    shutil.copy2(source_path, dest_path)
-                    
-
-
-                except Exception as e:
-                    print(f"could not copy: {e}")
-
-
-                '''
-                try:
-                    # Optionally, you can delete the original file
-                    os.remove(source_path)
-
-                    
-                except Exception as e:
-                    print(f"could not remove: {e}")                     
-                '''    
-                     
-
-        except Exception as e:
-            print(f"Error in move_file_to_dcim_directory: {e}")
-
-
-
-           
-            
-    def save_to_wave_file(self, audio_data, filename):
-        with wave.open(filename, 'wb') as wave_file:
-            # Set the WAV file parameters
-            wave_file.setnchannels(1)  # Mono audio
-            wave_file.setsampwidth(2)  # 16-bit audio
-            wave_file.setframerate(44100)  # Sample rate
-
-            # Convert the list to bytes before writing to the WAV file
-            #wave_file.writeframes(bytes(audio_data))
-            #wave_file.writeframes(b''.join(self.copy_sData))
-            
-            # Ensure audio_data is a list of bytes before writing to the WAV file
-            if not all(isinstance(chunk, bytes) for chunk in audio_data):
-                raise TypeError("Audio data should be a list of bytes")
-
-            # Join the list of bytes and write to the WAV file
-            wave_file.writeframes(b''.join(audio_data))
-            
-            
-
-
-
-
-
-
                 
  
     def stop(self,dt):
@@ -1271,10 +1021,9 @@ class RecordForm(MDScreen):
       
         
         #Start creating the wave file
-        #PATH is the file rec_test1.wav
         wf = wave.open(PATH, 'wb')
         wf.setnchannels(self.mic.channels)
-        wf.setsampwidth(2) #16 bit audio so 2 bytes of 8 bits each 
+        wf.setsampwidth(2)
         wf.setframerate(self.mic.rate)
         wf.writeframes(b''.join(self.copy_sData))
         print("we at stop")
@@ -1286,28 +1035,8 @@ class RecordForm(MDScreen):
         print("contents of sData")
         print(self.sData)
         print("contents of copy_sData")
-        print(self.copy_sData)    
+        print(self.copy_sData)        
         
-        #Save file to android
-        #self.save_audio()   
-        
-        
-        '''
-        #self.file_path = os.path.join(self.get_running_app().user_data_dir, "recorded_audio.wav")
-        self.file_path = os.path.join(App.get_running_app().user_data_dir, "recorded_audio.wav")
-   
-        print("self.file_path")
-        print(self.file_path)
-
-        # Save the recorded audio to a WAV file
-        with wave.open(self.file_path, 'w') as wf:
-            wf.setnchannels(1)
-            wf.setsampwidth(2)
-            wf.setframerate(44100)
-            #wf.writeframes(self.copy_sData.frames)
-            wf.writeframes(b''.join(self.copy_sData))
-        '''
-
 
         
         
@@ -1317,17 +1046,9 @@ class RecordForm(MDScreen):
         #No need to play the file
         #self.play()                    
         self.audio_path  = "rec_test1.wav"   
-        '''
-        try:
-            Clock.schedule_once(self.startSTFT)
-        except:
-            print("could not do stft")
-        '''
-        
-        
              
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
-        self.audio_path_out  = 'rec_test2.wav'
+        self.audio_path_out  = "rec_test2.wav"
         self.audio_inrate = 44100
         self.audio_outrate = 16000
         self.audio_inchannels = 1
@@ -1344,23 +1065,6 @@ class RecordForm(MDScreen):
             g = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
             print("downsampling completed at this time")
             print(g) 
-            #Move file to android storage
-            
-            '''
-            # Get the path to the app's internal storage directory
-            app_storage_dir = App.get_running_app().user_data_dir
-
-            # Save the audio data to a WAV file in the internal storage directory
-            file_path = os.path.join(app_storage_dir, 'rec_test2.wav')
-            
-            isthisaudio = 'Yes'
-            
-            #self.move_file_to_dcim_directory(str(file_path),isthisaudio)
-            self.move_file_to_dcim_directory(self.audio_path_out,isthisaudio)
-            '''
-
-            
-            
             try:                 
                 self.prepare_audio_frames()
             except:
@@ -1771,7 +1475,7 @@ class RecordForm(MDScreen):
         ###########################################################
         #Only display the button if the inference value is high ie a good match in the model
         ##########################################################
-        if(self.highest_inference_value > 0.40):              
+        if(self.highest_inference_value > 0.58):              
         
             self.display_audio_detection_button = ButtonLayoutAudioDetection()
         
