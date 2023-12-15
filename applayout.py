@@ -1345,6 +1345,8 @@ class RecordForm(MDScreen):
             print("downsampling completed at this time")
             print(g) 
             #Move file to android storage
+            
+            '''
             # Get the path to the app's internal storage directory
             app_storage_dir = App.get_running_app().user_data_dir
 
@@ -1355,7 +1357,7 @@ class RecordForm(MDScreen):
             
             #self.move_file_to_dcim_directory(str(file_path),isthisaudio)
             self.move_file_to_dcim_directory(self.audio_path_out,isthisaudio)
-            
+            '''
 
             
             
